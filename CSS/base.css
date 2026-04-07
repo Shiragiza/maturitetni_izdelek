@@ -1,0 +1,19 @@
+@font-face{
+    font-family: 'CormorantGaramond';
+    src:url(../FONTI/Cormorant_Garamond/CormorantGaramond-VariableFont_wght.ttf);
+    font-family: 'Fraunces';
+    src:url(../FONTI/Fraunces/Fraunces-VariableFont_SOFT_WONK_opsz_wght.ttf);
+     font-family: 'Gabriela';
+    src:url(../FONTI/Gabriela/Gabriela-Regular.ttf);
+}
+
+:root {
+    --sidebar-width: 80px;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}

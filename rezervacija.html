@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="sl">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Rezervacija - Brivska Akademija</title>
+    <link rel="stylesheet" href="CSS/base.css" />
+    <link rel="stylesheet" href="CSS/layout.css" />
+    <link rel="stylesheet" href="CSS/topbar.css" />
+    <link rel="stylesheet" href="CSS/utilities.css" />
+    <link rel="stylesheet" href="CSS/css_login_in_registracija.css" />
+</head>
+
+<body>
+
+    <aside class="sidebar" id="sidebar">
+        <button class="menu-toggle"><img style="height: 36px;" src="SLIKE\SIDEBAR\menu_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"></button>
+        <div class="sidebar-content">
+            <button class="sidebar-button" onclick="window.location.href='začetna_stran.html'"><img src="SLIKE\SIDEBAR\home_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Home</button>
+            <div class="sidebar-divider"></div>
+            <button class="sidebar-button" onclick="window.location.href='Predavatelji.html'"><img src="SLIKE\SIDEBAR\person_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Predavatelji</button>
+            <div class="sidebar-divider"></div>
+            <button class="sidebar-button" onclick="window.location.href='posnetki.html'"><img src="SLIKE\SIDEBAR\video_library_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Posnetki</button>
+            <div class="sidebar-divider"></div>
+            <button class="sidebar-button" onclick="window.location.href='kontakti.html'"><img src="SLIKE\SIDEBAR\call_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Kontakti</button>
+            <div class="sidebar-divider"></div>
+            <button class="sidebar-button" style="background-color: #333333;" onclick="window.location.href='rezervacija.html'"><img src="SLIKE\SIDEBAR\video_library_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Rezervacije</button>
+        </div>
+    </aside>
+    <header class="topbar">
+        <nav class="topbar-nav">
+            <button class="topbar-button" onclick="window.location.href='začetna_stran.html'"><img style="height: 24px;" src="SLIKE\SIDEBAR\home_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Home"> Home</button>
+            <button class="topbar-button" onclick="window.location.href='Predavatelji.html'"><img style="height: 24px;" src="SLIKE\SIDEBAR\person_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Predavatelji"> Predavatelji</button>
+            <button class="topbar-button" onclick="window.location.href='posnetki.html'"><img style="height: 24px;" src="SLIKE\SIDEBAR\video_library_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Posnetki"> Posnetki</button>
+            <button class="topbar-button" onclick="window.location.href='kontakti.html'"><img style="height: 24px;" src="SLIKE\SIDEBAR\call_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Kontakti"> Kontakti</button>
+            <button class="topbar-button" style="background-color: #333333;" onclick="window.location.href='rezervacija.html'"><img style="height: 24px;" src="SLIKE\SIDEBAR\video_library_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Rezervacije"> Rezervacije</button>
+        </nav>
+        <div class="topbar-auth" id="topbarAuth">
+            <button class="register-btn" onclick="window.location.href='registracija.html'">Registracija</button>
+            <button class="login-btn" onclick="window.location.href='login.html'">Login</button>
+        </div>
+    </header>
+
+    <div class="auth-buttons">
+        <button class="register-btn" onclick="window.location.href='registracija.html'">Registracija</button>
+        <button class="login-btn" onclick="window.location.href='login.html'">Login</button>
+    </div>
+
+    <div class="login-container">
+        <div class="login-form">
+            <h2 class="form-title">Rezervacija termina</h2>
+            <p style="text-align: center; margin-bottom: 20px; color: #666;">
+                Rezervirajte termin za striženje ali britje
+            </p>
+
+            <form id="appointmentForm">
+                <div class="form-group">
+                    <label for="firstName">Ime</label>
+                    <input type="text" id="firstName" name="firstName" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">Priimek</label>
+                    <input type="text" id="lastName" name="lastName" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Telefon</label>
+                    <input type="tel" id="phone" name="phone" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="barber">Izberite brivca</label>
+                    <select id="barber" name="barber" required>
+                        <option value="">Izberite brivca...</option>
+                        <option value="Luka">Luka</option>
+                        <option value="Žan">Žan</option>
+                        <option value="Mladen">Mladen</option>
+                        <option value="Djole">Djole</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="date">Datum</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="time">Čas</label>
+                    <input type="time" id="time" name="time" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">Opombe (neobvezno)</label>
+                    <textarea id="notes" name="notes" rows="3" placeholder="Dodatne želje..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Rezerviraj termin</button>
+            </form>
+
+            <div id="message" style="text-align: center; margin-top: 15px; display: none;"></div>
+
+            <h3 style="margin-top: 40px; margin-bottom: 15px;">Vaši termini</h3>
+            <div id="appointmentsList"></div>
+        </div>
+    </div>
+
+    <script src="JAVAScript/sidebar_and_topbar.js"></script>
+    <script src="JAVAScript/JS_login_and_regictracija.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const user = await checkAuth();
+            await updateAuthUI(user);
+
+            if (!user) {
+                window.location.href = 'login.html?redirect=rezervacija.html';
+                return;
+            }
+
+            console.log('User data:', user);
+            
+            try {
+                const response = await fetch(`${API_URL}/auth/me`, { credentials: 'include' });
+                const result = await response.json();
+                console.log('Full user data:', result);
+                const fullUser = result.user;
+                
+                if (fullUser) {
+                    document.getElementById('firstName').value = fullUser.first_name || '';
+                    document.getElementById('lastName').value = fullUser.last_name || '';
+                    document.getElementById('email').value = fullUser.email || '';
+                    document.getElementById('phone').value = fullUser.phone || '';
+                }
+            } catch (e) {
+                console.error('Error fetching user data:', e);
+                document.getElementById('firstName').value = user.first_name || '';
+                document.getElementById('lastName').value = user.last_name || '';
+                document.getElementById('email').value = user.email || '';
+                document.getElementById('phone').value = user.phone || '';
+            }
+
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('date').min = today;
+
+            loadAppointments();
+
+            document.getElementById('appointmentForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const barber = document.getElementById('barber').value;
+                const date = document.getElementById('date').value;
+                const time = document.getElementById('time').value;
+                const notes = document.getElementById('notes').value;
+
+                if (!barber || !date || !time) {
+                    showMessage('Izpolnite vsa polja', 'error');
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`${API_URL}/appointments`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        credentials: 'include',
+                        body: JSON.stringify({
+                            barber_name: barber,
+                            appointment_date: date,
+                            appointment_time: time,
+                            notes: notes
+                        })
+                    });
+
+                    console.log('Response status:', response.status);
+                    const result = await response.json();
+                    console.log('Response result:', result);
+
+                    if (result.success) {
+                        showMessage('Termin uspešno rezerviran!', 'success');
+                        document.getElementById('appointmentForm').reset();
+                        loadAppointments();
+                    } else {
+                        showMessage(result.error || 'Napaka pri rezervaciji', 'error');
+                    }
+                } catch (e) {
+                    console.error('Error creating appointment:', e);
+                    showMessage('Napaka pri komunikaciji s strežnikom', 'error');
+                }
+            });
+        });
+
+        async function loadAppointments() {
+            try {
+                const response = await fetch(`${API_URL}/appointments`, {
+                    credentials: 'include'
+                });
+                const appointments = await response.json();
+
+                const container = document.getElementById('appointmentsList');
+                
+                if (appointments.length === 0) {
+                    container.innerHTML = '<p style="color: #666;">Še nimate rezerviranih terminov.</p>';
+                    return;
+                }
+
+                container.innerHTML = appointments.map(apt => `
+                    <div style="background: #f5f5f5; padding: 15px; margin-bottom: 10px; border-radius: 8px;">
+                        <p><strong>Brivec:</strong> ${apt.barber_name}</p>
+                        <p><strong>Datum:</strong> ${new Date(apt.appointment_date).toLocaleDateString('sl-SI')}</p>
+                        <p><strong>Čas:</strong> ${apt.appointment_time}</p>
+                        <p><strong>Status:</strong> ${getStatusText(apt.status)}</p>
+                        ${apt.notes ? `<p><strong>Opombe:</strong> ${apt.notes}</p>` : ''}
+                    </div>
+                `).join('');
+            } catch (e) {
+                console.error('Error loading appointments:', e);
+            }
+        }
+
+        function getStatusText(status) {
+            const statuses = {
+                'pending': 'V čakanju',
+                'confirmed': 'Potrjen',
+                'completed': 'Opravljen',
+                'cancelled': 'Preklican'
+            };
+            return statuses[status] || status;
+        }
+
+        function showMessage(text, type) {
+            const msg = document.getElementById('message');
+            msg.textContent = text;
+            msg.style.color = type === 'success' ? 'green' : 'red';
+            msg.style.display = 'block';
+            setTimeout(() => msg.style.display = 'none', 5000);
+        }
+    </script>
+</body>
+
+</html>

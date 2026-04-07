@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="sl">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Plačilo uspešno - Brivska Akademija</title>
+    <link rel="stylesheet" href="CSS/base.css" />
+    <link rel="stylesheet" href="CSS/layout.css" />
+    <link rel="stylesheet" href="CSS/topbar.css" />
+    <link rel="stylesheet" href="CSS/utilities.css" />
+    <link rel="stylesheet" href="CSS/css_login_in_registracija.css" />
+</head>
+
+<body>
+
+    <aside class="sidebar" id="sidebar">
+        <button class="menu-toggle"><img style="height: 36px;" src="SLIKE\SIDEBAR\menu_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"></button>
+        <div class="sidebar-content">
+            <button class="sidebar-button" onclick="window.location.href='začetna_stran.html'"><img src="SLIKE\SIDEBAR\home_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Home</button>
+            <div class="sidebar-divider"></div>
+            <button class="sidebar-button" onclick="window.location.href='Predavatelji.html'"><img src="SLIKE\SIDEBAR\person_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Predavatelji</button>
+            <div class="sidebar-divider"></div>
+            <button class="sidebar-button" onclick="window.location.href='posnetki.html'"><img src="SLIKE\SIDEBAR\video_library_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Posnetki</button>
+            <div class="sidebar-divider"></div>
+            <button class="sidebar-button" onclick="window.location.href='kontakti.html'"><img src="SLIKE\SIDEBAR\call_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Kontakti</button>
+        </div>
+    </aside>
+    <header class="topbar">
+        <nav class="topbar-nav">
+            <button class="topbar-button" onclick="window.location.href='začetna_stran.html'"><img style="height: 24px;" src="SLIKE\SIDEBAR\home_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Home"> Home</button>
+            <button class="topbar-button" onclick="window.location.href='Predavatelji.html'"><img style="height: 24px;" src="SLIKE\SIDEBAR\person_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Predavatelji"> Predavatelji</button>
+            <button class="topbar-button" onclick="window.location.href='posnetki.html'"><img style="height: 24px;" src="SLIKE\SIDEBAR\video_library_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Posnetki"> Posnetki</button>
+            <button class="topbar-button" onclick="window.location.href='kontakti.html'"><img style="height: 24px;" src="SLIKE\SIDEBAR\call_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Kontakti"> Kontakti</button>
+        </nav>
+        <div class="topbar-auth" id="topbarAuth">
+            <button class="login-btn" onclick="logout()">Odjava</button>
+        </div>
+    </header>
+
+    <div class="login-container">
+        <div class="login-form" style="text-align: center;">
+            <h2 class="form-title" style="color: green;">Plačilo uspešno!</h2>
+            <p style="margin: 20px 0;">Vaše plačilo je bilo uspešno obdelano.</p>
+            <p style="margin: 20px 0;">Sedaj imate dostop do vseh video posnetkov.</p>
+            <button type="button" class="submit-btn" onclick="window.location.href='posnetki.html'">
+                Ogled posnetkov
+            </button>
+        </div>
+    </div>
+
+    <script src="JAVAScript/sidebar_and_topbar.js"></script>
+    <script src="JAVAScript/JS_login_and_regictracija.js"></script>
+    <script>
+        const API_URL = 'http://localhost:3000/api';
+
+        function getUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                token: params.get('token'),
+                PayerID: params.get('PayerID')
+            };
+        }
+
+        async function capturePayPalPayment() {
+            const { token, PayerID } = getUrlParams();
+            if (token && PayerID) {
+                try {
+                    await fetch(`${API_URL}/payment/paypal/capture-order`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        credentials: 'include',
+                        body: JSON.stringify({ orderId: token })
+                    });
+                } catch (e) {
+                    console.error('Error capturing PayPal payment:', e);
+                }
+            }
+        }
+        
+        async function checkAndRedirect() {
+            await capturePayPalPayment();
+            
+            try {
+                await fetch(`${API_URL}/auth/refresh`, { credentials: 'include' });
+                
+                const response = await fetch(`${API_URL}/auth/me`, { credentials: 'include' });
+                const result = await response.json();
+                
+                if (!result.user) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+                
+                if (result.user.has_access) {
+                    window.location.href = 'posnetki.html';
+                } else {
+                    window.location.href = 'placilo.html';
+                }
+            } catch (e) {
+                window.location.href = 'login.html';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const user = await checkAuth();
+            await updateAuthUI(user);
+            await checkAndRedirect();
+        });
+    </script>
+</body>
+
+</html>

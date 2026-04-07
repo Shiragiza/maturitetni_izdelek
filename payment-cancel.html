@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="sl">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Plačilo preklicano - Brivska Akademija</title>
+    <link rel="stylesheet" href="CSS/base.css" />
+    <link rel="stylesheet" href="CSS/layout.css" />
+    <link rel="stylesheet" href="CSS/topbar.css" />
+    <link rel="stylesheet" href="CSS/utilities.css" />
+    <link rel="stylesheet" href="CSS/css_login_in_registracija.css" />
+</head>
+
+<body>
+
+    <aside class="sidebar" id="sidebar">
+        <button class="menu-toggle"><img style="height: 36px;" src="SLIKE\SIDEBAR\menu_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"></button>
+        <div class="sidebar-content">
+            <button class="sidebar-button" onclick="window.location.href='začetna_stran.html'"><img src="SLIKE\SIDEBAR\home_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Home</button>
+            <div class="sidebar-divider"></div>
+            <button class="sidebar-button" onclick="window.location.href='Predavatelji.html'"><img src="SLIKE\SIDEBAR\person_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Predavatelji</button>
+            <div class="sidebar-divider"></div>
+            <button class="sidebar-button" onclick="window.location.href='posnetki.html'"><img src="SLIKE\SIDEBAR\video_library_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Posnetki</button>
+            <div class="sidebar-divider"></div>
+            <button class="sidebar-button" onclick="window.location.href='kontakti.html'"><img src="SLIKE\SIDEBAR\call_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Kontakti</button>
+        </div>
+    </aside>
+    <header class="topbar">
+        <nav class="topbar-nav">
+            <button class="topbar-button" onclick="window.location.href='začetna_stran.html'"><img style="height: 24px;" src="SLIKE\SIDEBAR\home_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Home"> Home</button>
+            <button class="topbar-button" onclick="window.location.href='Predavatelji.html'"><img style="height: 24px;" src="SLIKE\SIDEBAR\person_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Predavatelji"> Predavatelji</button>
+            <button class="topbar-button" onclick="window.location.href='posnetki.html'"><img style="height: 24px;" src="SLIKE\SIDEBAR\video_library_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Posnetki"> Posnetki</button>
+            <button class="topbar-button" onclick="window.location.href='kontakti.html'"><img style="height: 24px;" src="SLIKE\SIDEBAR\call_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Kontakti"> Kontakti</button>
+        </nav>
+        <div class="topbar-auth" id="topbarAuth">
+            <button class="login-btn" onclick="logout()">Odjava</button>
+        </div>
+    </header>
+
+    <div class="login-container">
+        <div class="login-form" style="text-align: center;">
+            <h2 class="form-title" style="color: orange;">Plačilo preklicano</h2>
+            <p style="margin: 20px 0;">Vaše plačilo je bilo preklicano.</p>
+            <p style="margin: 20px 0;">Poskusite znova ali se obrnite na podporo.</p>
+            <button type="button" class="submit-btn" onclick="window.location.href='placilo.html'">
+                Poskusi znova
+            </button>
+            <button type="button" class="register-btn" style="margin-top: 10px;" onclick="window.location.href='začetna_stran.html'">
+                Nazaj na domačo stran
+            </button>
+        </div>
+    </div>
+
+    <script src="JAVAScript/sidebar_and_topbar.js"></script>
+    <script src="JAVAScript/JS_login_and_regictracija.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const user = await checkAuth();
+            await updateAuthUI(user);
+        });
+    </script>
+</body>
+
+</html>

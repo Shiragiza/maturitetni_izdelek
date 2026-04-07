@@ -1,0 +1,16 @@
+/* Login & Registration containers respect sidebar spacing */
+.registration-container, .login-container {
+  min-height: 100vh; display: flex; justify-content: center; align-items: center; background-color: #f8f6f2; padding: 20px; position: relative; left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); box-sizing: border-box;
+}
+.registration-form, .login-form { background-color: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); width: 100%; max-width: 400px; }
+.form-title { text-align: center; margin-bottom: 30px; color: #333; font-family: "Gabriela"; }
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; margin-bottom: 5px; color: #555; font-weight: 600; }
+.form-group input { width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 5px; font-size: 16px; transition: border-color 0.3s ease; box-sizing: border-box; }
+.form-group input:focus { outline: none; border-color: rgba(204, 155, 103, 0.733); }
+.submit-btn { width: 100%; background-color: rgba(204, 155, 103, 0.733); color: white; border: none; padding: 15px; font-size: 16px; font-weight: 600; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease; }
+.submit-btn:hover { background-color: rgb(198, 159, 117); }
+.login-link, .register-link { text-align: center; margin-top: 20px; }
+.login-link a, .register-link a { color: rgba(204, 155, 103, 0.733); text-decoration: none; }
+.login-link a:hover, .register-link a:hover { text-decoration: underline; }
+@media (max-width: 900px) { .registration-container, .login-container { left: 0; width: 100%; } }

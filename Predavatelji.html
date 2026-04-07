@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="sl">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Predavatelji - Brivska Akademija</title>
+    <link rel="stylesheet" href="CSS/base.css" />
+    <link rel="stylesheet" href="CSS/layout.css" />
+    <link rel="stylesheet" href="CSS/topbar.css" />
+    <link rel="stylesheet" href="CSS/utilities.css" />
+    <link rel="stylesheet" href="CSS/css_predavatelji.css" />
+</head>
+
+<body>
+
+    <aside class="sidebar" id="sidebar">
+        <button class="menu-toggle"><img style="height: 36px;" src="SLIKE\SIDEBAR\menu_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"></button>
+        <div class="sidebar-content">
+            <button class="sidebar-button" onclick="window.location.href='začetna_stran.html'"><img src="SLIKE\SIDEBAR\home_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Home</button>
+            <div class="sidebar-divider"></div>
+            <button class="sidebar-button" style="background-color: #333333;"><img src="SLIKE\SIDEBAR\person_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Predavatelji</button>
+            <div class="sidebar-divider"></div>
+            <button class="sidebar-button" onclick="window.location.href='posnetki.html'"><img src="SLIKE\SIDEBAR\video_library_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Posnetki</button>
+            <div class="sidebar-divider"></div>
+            <button class="sidebar-button" onclick="window.location.href='kontakti.html'"><img src="SLIKE\SIDEBAR\call_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Kontakti</button>
+        </div>
+        </div>
+    </aside>
+<header class="topbar">
+    <nav class="topbar-nav">
+        <button class="topbar-button" onclick="window.location.href='začetna_stran.html'"><img style="height: 24px;" src="SLIKE\SIDEBAR\home_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Home"> Home</button>
+        <button class="topbar-button" style="background-color: #333333;"><img style="height: 24px;" src="SLIKE\SIDEBAR\person_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Predavatelji"> Predavatelji</button>
+        <button class="topbar-button" onclick="window.location.href='posnetki.html'"><img style="height: 24px;" src="SLIKE\SIDEBAR\video_library_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Posnetki"> Posnetki</button>
+        <button class="topbar-button" onclick="window.location.href='kontakti.html'"><img style="height: 24px;" src="SLIKE\SIDEBAR\call_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Kontakti"> Kontakti</button>
+    </nav>
+    </nav>
+    <div class="topbar-auth">
+        <button class="register-btn" onclick="window.location.href='registracija.html'">Registracija</button>
+        <button class="login-btn" onclick="window.location.href='login.html'">Login</button>
+    </div>
+</header>
+    <div class="auth-buttons">
+        <button class="register-btn" onclick="window.location.href='registracija.html'">Registracija</button>
+        <button class="login-btn" onclick="window.location.href='login.html'">Login</button>
+    </div>
+
+    <div class="div-light">
+        <h1 class="h1-elegant">Naši Predavatelji</h1>
+        <p>Seznam vseh naših kvalificiranih profesorjev</p>
+
+        <!-- Responsive Cards Row -->
+        <section class="cards-grid cards-container" aria-label="Predavatelji">
+            <!-- Card 1 -->
+            <article class="person-card" data-firstname="Luka" data-lastname="Oven" data-age="23" data-bio="Večletne izkušnje z natančnimi klasičnimi in modernimi pristriženji. Mentor novih generacij brivcev.">
+                <button class="card-media card-trigger" aria-label="Odpri profil Luka Oven">
+                    <img src="SLIKE/brivci/luka.jpg" alt="Luka Oven" loading="lazy" />
+                    <div class="overlay">
+                        <div class="overlay-content">
+                            <h3 class="person-name">Luka Oven</h3>
+                            <hr class="overlay-hr" />
+                            <p class="person-desc">Mojster brivec</p>
+                        </div>
+                    </div>
+                </button>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="person-card" data-firstname="Đorđe" data-lastname="Petrović" data-age="34" data-bio="Specialist za brade, oblikovanje in personalizirana nega. Ljubitelj detajlov in perfekcionist.">
+                <button class="card-media card-trigger" aria-label="Odpri profil Đorđe Petrović">
+                    <img src="SLIKE/brivci/djole.jpg" alt="ĐORĐE" loading="lazy" />
+                    <div class="overlay">
+                        <div class="overlay-content">
+                            <h3 class="person-name">ĐORĐE</h3>
+                            <hr class="overlay-hr" />
+                            <p class="person-desc">Strokovnjak za nego brade in sodobne trende oblikovanja.</p>
+                        </div>
+                    </div>
+                </button>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="person-card" data-firstname="Žan" data-lastname="Novak" data-age="27" data-bio="Predavatelj tehnik britja, higiene in vzdrževanja orodij. Poudarek na preciznosti in varnosti.">
+                <button class="card-media card-trigger" aria-label="Odpri profil Žan Novak">
+                    <img src="SLIKE/brivci/zan.jpg" alt="Žan" loading="lazy" />
+                    <div class="overlay">
+                        <div class="overlay-content">
+                            <h3 class="person-name">Žan</h3>
+                            <hr class="overlay-hr" />
+                            <p class="person-desc">Predavatelj tehnik britja in vzdrževanja orodij v praksi.</p>
+                        </div>
+                    </div>
+                </button>
+            </article>
+
+            <!-- Card 4  -->
+            <article class="person-card" data-firstname="Mladen" data-lastname="Kovač" data-age="31" data-bio="Brivec sodobnega časa z občutkom za stil in prijaznim pristopom do strank.">
+                <button class="card-media card-trigger" aria-label="Odpri profil Mladen Kovač">
+                    <img src="SLIKE/brivci/mladen.jpg" alt="Mladen" loading="lazy" />
+                    <div class="overlay">
+                        <div class="overlay-content">
+                            <h3 class="person-name">Mladen</h3>
+                            <hr class="overlay-hr" />
+                            <p class="person-desc">Brivec sodobnega časa.</p>
+                        </div>
+                    </div>
+                </button>
+            </article>
+        </section>
+
+        <!-- Expanded modal overlay and card -->
+        <div class="card-overlay" hidden>
+            <div class="card-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+                <button class="modal-close" aria-label="Zapri">×</button>
+                <div class="flip-scene">
+                    <div class="flip-card">
+                        <div class="flip-face flip-front"></div>
+                        <div class="flip-face flip-back">
+                            <div class="modal-content">
+                                <h2 id="modal-title" class="modal-name"></h2>
+                                <hr class="modal-hr" />
+                                <p class="modal-age"></p>
+                                <hr class="modal-hr" />
+                                <p class="modal-bio"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-col">
+          <h4>Email</h4>
+          <a href="mailto:matic.mikac@gmail.com">matic.mikac@gmail.com</a>
+        </div>
+        <div class="footer-col">
+          <h4>Telefon</h4>
+          <a href="tel:+38668657545">068 657 545</a>
+        </div>
+        <div class="footer-col">
+          <h4>Lokacija</h4>
+          <a href="https://www.google.com/maps?q=Slovenska+cesta+30" target="_blank" rel="noopener">Odpri v Google Maps</a>
+          <p>Ljubljana 1000</p>
+        </div>
+      </div>
+      <div class="footer-note">© Brivska Akademija</div>
+    </footer>
+
+    <script src="JAVAScript/sidebar_and_topbar.js"></script>
+    <script src="JAVAScript/predavatelji_modal.js"></script>
+    <script src="JAVAScript/JS_login_and_regictracija.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const user = await checkAuth();
+            await updateAuthUI(user);
+        });
+    </script>
+</body>
+
+</html>

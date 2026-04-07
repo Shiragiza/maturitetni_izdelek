@@ -1,0 +1,682 @@
+<!doctype html>
+<html lang="sl">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin - Brivska Akademija</title>
+    <link rel="stylesheet" href="CSS/base.css" />
+    <link rel="stylesheet" href="CSS/layout.css" />
+    <link rel="stylesheet" href="CSS/topbar.css" />
+    <link rel="stylesheet" href="CSS/utilities.css" />
+    <link rel="stylesheet" href="CSS/css_login_in_registracija.css" />
+    <style>
+        .admin-container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .admin-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .admin-table th, .admin-table td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        .admin-table th { background-color: #333; color: white; }
+        .admin-table tr:hover { background-color: #f5f5f5; }
+        .btn { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; margin-right: 5px; }
+        .btn-primary { background-color: #4CAF50; color: white; }
+        .btn-danger { background-color: #f44336; color: white; }
+        .btn-warning { background-color: #ff9800; color: white; }
+        .access-badge { padding: 4px 8px; border-radius: 4px; font-size: 12px; }
+        .access-granted { background-color: #4CAF50; color: white; }
+        .access-denied { background-color: #f44336; color: white; }
+        .role-badge { padding: 4px 8px; border-radius: 4px; font-size: 12px; }
+        .role-admin { background-color: #9c27b0; color: white; }
+        .role-user { background-color: #2196F3; color: white; }
+        .status-badge { padding: 4px 8px; border-radius: 4px; font-size: 12px; }
+        .status-pending { background-color: #ff9800; color: white; }
+        .status-confirmed { background-color: #4CAF50; color: white; }
+        .status-completed { background-color: #2196F3; color: white; }
+        .status-cancelled { background-color: #f44336; color: white; }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
+        .modal-content { background-color: white; margin: 10% auto; padding: 20px; border-radius: 8px; width: 500px; max-width: 90%; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .close { font-size: 28px; font-weight: bold; cursor: pointer; }
+        .form-row { display: flex; gap: 10px; margin-bottom: 15px; }
+        .form-row .form-group { flex: 1; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group input, .form-group select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+    </style>
+</head>
+
+<body>
+
+    <aside class="sidebar" id="sidebar">
+        <button class="menu-toggle"><img style="height: 36px;" src="SLIKE\SIDEBAR\menu_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"></button>
+        <div class="sidebar-content">
+            <button class="sidebar-button" onclick="showSection('users')"><img src="SLIKE\SIDEBAR\person_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Uporabniki</button>
+            <div class="sidebar-divider"></div>
+            <button class="sidebar-button" onclick="showSection('videos')"><img src="SLIKE\SIDEBAR\video_library_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Video Posnetki</button>
+            <div class="sidebar-divider"></div>
+            <button class="sidebar-button" onclick="showSection('appointments')"><img src="SLIKE\SIDEBAR\video_library_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Rezervacije</button>
+        </div>
+    </aside>
+    <header class="topbar">
+        <nav class="topbar-nav">
+            <button class="topbar-button" onclick="showSection('users')">Uporabniki</button>
+            <button class="topbar-button" onclick="showSection('videos')">Video Posnetki</button>
+            <button class="topbar-button" onclick="showSection('appointments')">Rezervacije</button>
+        </nav>
+        <div class="topbar-auth">
+            <span style="color: rgba(204, 155, 103, 0.733); margin-right: 10px;" id="adminName"></span>
+            <button class="login-btn" onclick="logout()">Odjava</button>
+        </div>
+    </header>
+
+    <div class="admin-container">
+        <div class="admin-header" id="usersHeader">
+            <h1>Upravljanje uporabnikov</h1>
+            <button class="btn btn-primary" onclick="openAddModal()">Dodaj uporabnika</button>
+        </div>
+
+        <div id="usersSection">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Ime</th>
+                        <th>Priimek</th>
+                        <th>Email</th>
+                        <th>Telefon</th>
+                        <th>Dostop</th>
+                        <th>Vloga</th>
+                        <th>Datum</th>
+                        <th>Akcije</th>
+                    </tr>
+                </thead>
+                <tbody id="usersTableBody">
+                    <tr><td colspan="9">Nalaganje...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="videosSection" style="display: none;">
+            <div class="admin-header" style="margin-top: 20px;">
+                <h1>Upravljanje video posnetkov</h1>
+                <button class="btn btn-primary" onclick="openAddVideoModal()">Dodaj video</button>
+            </div>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Naslov</th>
+                        <th>Opis</th>
+                        <th>Video datoteka</th>
+                        <th>Slika</th>
+                        <th>Akcije</th>
+                    </tr>
+                </thead>
+                <tbody id="videosTableBody">
+                    <tr><td colspan="6">Nalaganje...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="appointmentsSection" style="display: none;">
+            <div class="admin-header" style="margin-top: 20px;">
+                <h1>Upravljanje rezervacij</h1>
+            </div>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Uporabnik</th>
+                        <th>Email</th>
+                        <th>Telefon</th>
+                        <th>Brivec</th>
+                        <th>Datum</th>
+                        <th>Čas</th>
+                        <th>Status</th>
+                        <th>Akcije</th>
+                    </tr>
+                </thead>
+                <tbody id="appointmentsTableBody">
+                    <tr><td colspan="9">Nalaganje...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="videoModalTitle">Dodaj video</h2>
+                <span class="close" onclick="closeVideoModal()">&times;</span>
+            </div>
+            <form id="videoForm">
+                <input type="hidden" id="videoId">
+                <div class="form-group">
+                    <label for="videoTitle">Naslov</label>
+                    <input type="text" id="videoTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="videoDescription">Opis</label>
+                    <textarea id="videoDescription" rows="3" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="videoFile">Video datoteka</label>
+                    <input type="text" id="videoFile" placeholder="npr: media/video1.mp4">
+                </div>
+                <div class="form-group">
+                    <label for="videoPoster">Slika (poster)</label>
+                    <input type="text" id="videoPoster" placeholder="npr: SLIKE/brivci/luka.jpg">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Shrani</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="userModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Dodaj uporabnika</h2>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <form id="userForm">
+                <input type="hidden" id="userId">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="first_name">Ime</label>
+                        <input type="text" id="first_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name">Priimek</label>
+                        <input type="text" id="last_name" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Telefon</label>
+                    <input type="text" id="phone" required>
+                </div>
+                <div class="form-group" id="passwordGroup">
+                    <label for="password">Geslo</label>
+                    <input type="password" id="password">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="has_access">Dostop</label>
+                        <select id="has_access">
+                            <option value="true">Omogočen</option>
+                            <option value="false">Onemogočen</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="role">Vloga</label>
+                        <select id="role">
+                            <option value="user">Uporabnik</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Shrani</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="JAVAScript/sidebar_and_topbar.js"></script>
+    <script>
+        console.log('Admin JS loading...');
+        const API_URL = 'http://localhost:3000/api';
+
+        async function apiRequest(endpoint, method = 'GET', data = null) {
+            const options = {
+                method,
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include'
+            };
+            if (data) {
+                options.body = JSON.stringify(data);
+            }
+            const response = await fetch(`${API_URL}${endpoint}`, options);
+            return response.json();
+        }
+
+        async function logout() {
+            try {
+                await apiRequest('/auth/logout', 'POST');
+                window.location.href = 'začetna_stran.html';
+            } catch (e) {
+                alert('Napaka pri odjavi');
+            }
+        }
+
+        async function checkAdmin() {
+            try {
+                const response = await fetch(`${API_URL}/auth/me`, { credentials: 'include' });
+                const result = await response.json();
+                if (!result.user || result.user.role !== 'admin') {
+                    window.location.href = 'login.html';
+                    return null;
+                }
+                return result.user;
+            } catch (e) {
+                window.location.href = 'login.html';
+                return null;
+            }
+        }
+
+        async function loadUsers() {
+            try {
+                console.log('Loading users...');
+                const response = await fetch(`${API_URL}/admin/users`, { credentials: 'include' });
+                console.log('Response status:', response.status);
+                const result = await response.json();
+                console.log('Result:', result);
+                
+                if (result.error) {
+                    alert('Napaka: ' + result.error);
+                    return;
+                }
+
+                if (!result.users || result.users.length === 0) {
+                    document.getElementById('usersTableBody').innerHTML = '<tr><td colspan="9">Ni uporabnikov</td></tr>';
+                    return;
+                }
+
+                const tbody = document.getElementById('usersTableBody');
+                tbody.innerHTML = result.users.map(user => `
+                    <tr>
+                        <td>${user.id}</td>
+                        <td>${user.first_name}</td>
+                        <td>${user.last_name}</td>
+                        <td>${user.email}</td>
+                        <td>${user.phone}</td>
+                        <td><span class="access-badge ${user.has_access ? 'access-granted' : 'access-denied'}">${user.has_access ? 'Omogočen' : 'Onemogočen'}</span></td>
+                        <td><span class="role-badge ${user.role === 'admin' ? 'role-admin' : 'role-user'}">${user.role}</span></td>
+                        <td>${new Date(user.created_at).toLocaleDateString('sl-SI')}</td>
+                        <td>
+                            <button class="btn btn-warning" onclick="editUser(${user.id})">Uredi</button>
+                            <button class="btn btn-danger" onclick="deleteUser(${user.id})">Izbriši</button>
+                        </td>
+                    </tr>
+                `).join('');
+            } catch (e) {
+                alert('Napaka pri nalaganju uporabnikov');
+            }
+        }
+
+        function openAddModal() {
+            document.getElementById('modalTitle').textContent = 'Dodaj uporabnika';
+            document.getElementById('userForm').reset();
+            document.getElementById('userId').value = '';
+            document.getElementById('passwordGroup').style.display = 'block';
+            document.getElementById('password').required = true;
+            document.getElementById('userModal').style.display = 'block';
+        }
+
+        async function editUser(id) {
+            try {
+                const response = await fetch(`${API_URL}/admin/users/${id}`, { credentials: 'include' });
+                const result = await response.json();
+                
+                if (result.error) {
+                    alert(result.error);
+                    return;
+                }
+
+                const user = result.user;
+                document.getElementById('modalTitle').textContent = 'Uredi uporabnika';
+                document.getElementById('userId').value = user.id;
+                document.getElementById('first_name').value = user.first_name;
+                document.getElementById('last_name').value = user.last_name;
+                document.getElementById('email').value = user.email;
+                document.getElementById('phone').value = user.phone;
+                document.getElementById('has_access').value = user.has_access ? 'true' : 'false';
+                document.getElementById('role').value = user.role;
+                document.getElementById('passwordGroup').style.display = 'block';
+                document.getElementById('password').required = false;
+                document.getElementById('userModal').style.display = 'block';
+            } catch (e) {
+                alert('Napaka pri nalaganju podatkov');
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('userModal').style.display = 'none';
+        }
+
+        document.getElementById('userForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const id = document.getElementById('userId').value;
+            const data = {
+                first_name: document.getElementById('first_name').value,
+                last_name: document.getElementById('last_name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                has_access: document.getElementById('has_access').value === 'true',
+                role: document.getElementById('role').value
+            };
+
+            const password = document.getElementById('password').value;
+            if (password) {
+                data.password = password;
+            }
+
+            try {
+                const url = id ? `${API_URL}/admin/users/${id}` : `${API_URL}/admin/users`;
+                const method = id ? 'PUT' : 'POST';
+                
+                const response = await fetch(url, {
+                    method: method,
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                
+                if (result.error) {
+                    alert(result.error);
+                } else {
+                    closeModal();
+                    loadUsers();
+                }
+            } catch (e) {
+                alert('Napaka pri shranjevanju');
+            }
+        });
+
+        async function deleteUser(id) {
+            if (!confirm('Ali ste prepričani, da želite izbrisati tega uporabnika?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/admin/users/${id}`, {
+                    method: 'DELETE',
+                    credentials: 'include'
+                });
+
+                const result = await response.json();
+                
+                if (result.error) {
+                    alert(result.error);
+                } else {
+                    loadUsers();
+                }
+            } catch (e) {
+                alert('Napaka pri brisanju');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('Admin page loaded');
+            const user = await checkAdmin();
+            console.log('User from checkAdmin:', user);
+            if (user) {
+                document.getElementById('adminName').textContent = user.first_name;
+                loadUsers();
+                loadVideos();
+                loadAppointments();
+            }
+        });
+
+        function showSection(section) {
+            console.log('showSection called with:', section);
+            const usersSection = document.getElementById('usersSection');
+            const videosSection = document.getElementById('videosSection');
+            const appointmentsSection = document.getElementById('appointmentsSection');
+            const usersHeader = document.getElementById('usersHeader');
+            
+            if (section === 'users') {
+                usersSection.style.display = 'block';
+                videosSection.style.display = 'none';
+                appointmentsSection.style.display = 'none';
+                usersHeader.style.display = 'flex';
+            } else if (section === 'videos') {
+                usersSection.style.display = 'none';
+                videosSection.style.display = 'block';
+                appointmentsSection.style.display = 'none';
+                usersHeader.style.display = 'none';
+            } else if (section === 'appointments') {
+                usersSection.style.display = 'none';
+                videosSection.style.display = 'none';
+                appointmentsSection.style.display = 'block';
+                usersHeader.style.display = 'none';
+            }
+        }
+
+        async function loadVideos() {
+            try {
+                const response = await fetch(`${API_URL}/videos`, { credentials: 'include' });
+                const result = await response.json();
+                
+                if (result.error) {
+                    alert('Napaka: ' + result.error);
+                    return;
+                }
+
+                if (!result.videos || result.videos.length === 0) {
+                    document.getElementById('videosTableBody').innerHTML = '<tr><td colspan="6">Ni video posnetkov</td></tr>';
+                    return;
+                }
+
+                const tbody = document.getElementById('videosTableBody');
+                tbody.innerHTML = result.videos.map(video => `
+                    <tr>
+                        <td>${video.id}</td>
+                        <td>${video.title}</td>
+                        <td>${video.description || ''}</td>
+                        <td>${video.video_url}</td>
+                        <td>${video.thumbnail_url || ''}</td>
+                        <td>
+                            <button class="btn btn-warning" onclick="editVideo(${video.id})">Uredi</button>
+                            <button class="btn btn-danger" onclick="deleteVideo(${video.id})">Izbriši</button>
+                        </td>
+                    </tr>
+                `).join('');
+            } catch (e) {
+                console.error('Error loading videos:', e);
+                document.getElementById('videosTableBody').innerHTML = '<tr><td colspan="6">Napaka pri nalaganju videov</td></tr>';
+            }
+        }
+
+        function openAddVideoModal() {
+            document.getElementById('videoModalTitle').textContent = 'Dodaj video';
+            document.getElementById('videoForm').reset();
+            document.getElementById('videoId').value = '';
+            document.getElementById('videoModal').style.display = 'block';
+        }
+
+        async function editVideo(id) {
+            try {
+                const response = await fetch(`${API_URL}/videos/${id}`, { credentials: 'include' });
+                const result = await response.json();
+                
+                if (result.error) {
+                    alert(result.error);
+                    return;
+                }
+
+                const video = result.video;
+                document.getElementById('videoModalTitle').textContent = 'Uredi video';
+                document.getElementById('videoId').value = video.id;
+                document.getElementById('videoTitle').value = video.title;
+                document.getElementById('videoDescription').value = video.description || '';
+                document.getElementById('videoFile').value = video.video_url;
+                document.getElementById('videoPoster').value = video.thumbnail_url || '';
+                document.getElementById('videoModal').style.display = 'block';
+            } catch (e) {
+                alert('Napaka pri nalaganju podatkov');
+            }
+        }
+
+        async function deleteVideo(id) {
+            if (!confirm('Ali ste prepričani, da želite izbrisati ta video?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/videos/${id}`, {
+                    method: 'DELETE',
+                    credentials: 'include'
+                });
+
+                const result = await response.json();
+                
+                if (result.error) {
+                    alert(result.error);
+                } else {
+                    loadVideos();
+                }
+            } catch (e) {
+                alert('Napaka pri brisanju');
+            }
+        }
+
+        function closeVideoModal() {
+            document.getElementById('videoModal').style.display = 'none';
+        }
+
+        async function loadAppointments() {
+            try {
+                const response = await fetch(`${API_URL}/admin/appointments`, { credentials: 'include' });
+                const result = await response.json();
+                
+                if (result.error) {
+                    alert('Napaka: ' + result.error);
+                    return;
+                }
+
+                if (!result || result.length === 0) {
+                    document.getElementById('appointmentsTableBody').innerHTML = '<tr><td colspan="9">Ni rezervacij</td></tr>';
+                    return;
+                }
+
+                const tbody = document.getElementById('appointmentsTableBody');
+                tbody.innerHTML = result.map(apt => `
+                    <tr>
+                        <td>${apt.id}</td>
+                        <td>${apt.first_name} ${apt.last_name}</td>
+                        <td>${apt.email}</td>
+                        <td>${apt.phone}</td>
+                        <td>${apt.barber_name}</td>
+                        <td>${new Date(apt.appointment_date).toLocaleDateString('sl-SI')}</td>
+                        <td>${apt.appointment_time}</td>
+                        <td><span class="status-badge status-${apt.status}">${getStatusText(apt.status)}</span></td>
+                        <td>
+                            <select onchange="updateAppointmentStatus(${apt.id}, this.value)" style="padding: 4px;">
+                                <option value="pending" ${apt.status === 'pending' ? 'selected' : ''}>V čakanju</option>
+                                <option value="confirmed" ${apt.status === 'confirmed' ? 'selected' : ''}>Potrjen</option>
+                                <option value="completed" ${apt.status === 'completed' ? 'selected' : ''}>Opravljen</option>
+                                <option value="cancelled" ${apt.status === 'cancelled' ? 'selected' : ''}>Preklican</option>
+                            </select>
+                            <button class="btn btn-danger" onclick="deleteAppointment(${apt.id})">Izbriši</button>
+                        </td>
+                    </tr>
+                `).join('');
+            } catch (e) {
+                console.error('Error loading appointments:', e);
+                document.getElementById('appointmentsTableBody').innerHTML = '<tr><td colspan="9">Napaka pri nalaganju rezervacij</td></tr>';
+            }
+        }
+
+        function getStatusText(status) {
+            const statuses = {
+                'pending': 'V čakanju',
+                'confirmed': 'Potrjen',
+                'completed': 'Opravljen',
+                'cancelled': 'Preklican'
+            };
+            return statuses[status] || status;
+        }
+
+        async function updateAppointmentStatus(id, status) {
+            try {
+                const response = await fetch(`${API_URL}/admin/appointments/${id}/status`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify({ status })
+                });
+
+                const result = await response.json();
+                
+                if (result.error) {
+                    alert(result.error);
+                } else {
+                    loadAppointments();
+                }
+            } catch (e) {
+                alert('Napaka pri posodobitvi statusa');
+            }
+        }
+
+        async function deleteAppointment(id) {
+            if (!confirm('Ali ste prepričani, da želite izbrisati to rezervacijo?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/admin/appointments/${id}`, {
+                    method: 'DELETE',
+                    credentials: 'include'
+                });
+
+                const result = await response.json();
+                
+                if (result.error) {
+                    alert(result.error);
+                } else {
+                    loadAppointments();
+                }
+            } catch (e) {
+                alert('Napaka pri brisanju');
+            }
+        }
+
+        document.getElementById('videoForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const id = document.getElementById('videoId').value;
+            const data = {
+                title: document.getElementById('videoTitle').value,
+                description: document.getElementById('videoDescription').value,
+                video_url: document.getElementById('videoFile').value,
+                thumbnail_url: document.getElementById('videoPoster').value
+            };
+
+            try {
+                const url = id ? `${API_URL}/videos/${id}` : `${API_URL}/videos`;
+                const method = id ? 'PUT' : 'POST';
+                
+                const response = await fetch(url, {
+                    method: method,
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                
+                if (result.error) {
+                    alert(result.error);
+                } else {
+                    closeVideoModal();
+                    loadVideos();
+                }
+            } catch (e) {
+                alert('Napaka pri shranjevanju');
+            }
+        });
+
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                closeModal();
+                closeVideoModal();
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,399 @@
+@font-face{
+    font-family: 'CormorantGaramond';
+    src:url(../FONTI/Cormorant_Garamond/CormorantGaramond-VariableFont_wght.ttf);
+    font-family: 'Fraunces';
+    src:url(../FONTI/Fraunces/Fraunces-VariableFont_SOFT_WONK_opsz_wght.ttf);
+     font-family: 'Gabriela';
+    src:url(../FONTI/Gabriela/Gabriela-Regular.ttf);
+}
+
+/* Sidebar width variable and expanded override for sibling content */
+:root {
+    --sidebar-width: 80px;
+}
+
+/* Remove default body margin so bars touch screen edges */
+body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
+
+/* Top bar (mobile/tablet) hidden by default, shown in small screens */
+.topbar {
+    display: none;
+}
+
+/* When sidebar is expanded, increase the reserved space for main sections */
+.sidebar.expanded ~ .auth-buttons,
+.sidebar.expanded ~ .div-light,
+.sidebar.expanded ~ .div-white,
+.sidebar.expanded ~ .registration-container,
+.sidebar.expanded ~ .login-container,
+.sidebar.expanded ~ .site-footer {
+    --sidebar-width: 200px;
+}
+
+/* Mobile/tablet layout: hide sidebar and floating auth buttons, show topbar */
+@media (max-width: 900px) {
+    /* Fully hide sidebar including space and ensure it's not interactive */
+    .sidebar { display: none !important; width: 0 !important; height: 0 !important; overflow: hidden !important; }
+    .auth-buttons { display: none !important; }
+
+    /* Reset reserved space since sidebar is hidden */
+    :root { --sidebar-width: 0px; }
+
+    .div-light,
+    .div-white,
+    .registration-container,
+    .login-container {
+        left: 0;
+        width: 100%;
+        padding-left: clamp(10px, 4vw, 28px);
+        padding-right: clamp(10px, 4vw, 28px);
+    }
+
+    /* Top bar container: full-bleed, wraps content, sticks to top */
+    .topbar {
+        position: sticky;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1002;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 8px 10px;
+        background-color: rgba(0, 0, 0, 0.85);
+        border-bottom: 1px solid #333;
+        box-sizing: border-box;
+        width: 100%;
+    }
+
+    /* Make topbar content responsive and non-overlapping */
+    .topbar-nav {
+        display: flex;
+        flex: 1 1 auto;
+        min-width: 0;
+        gap: 6px;
+        align-items: center;
+        overflow-x: auto;
+    }
+
+    .topbar-button {
+        background: none;
+        border: none;
+        color: #ffffff;
+        font-size: clamp(14px, 3.8vw, 18px);
+        padding: 8px clamp(8px, 2.5vw, 14px);
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border-radius: 6px;
+        white-space: nowrap;
+        max-width: 40vw;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .topbar-button img { height: clamp(18px, 4vw, 24px); }
+
+    .topbar-button:hover { background-color: #333333; }
+
+    /* Right side: auth buttons inline, scalable */
+    .topbar-auth {
+        display: flex;
+        flex: 0 0 auto;
+        gap: 8px;
+        align-items: center;
+    }
+
+    .topbar-auth .login-btn,
+    .topbar-auth .register-btn {
+        background-color: rgba(0, 0, 0, 0.7);
+        color: #ffffff;
+        border: 2px solid #ffffff;
+        padding: 6px clamp(10px, 3vw, 14px);
+        font-family: 'Fraunces';
+        font-size: clamp(12px, 3.5vw, 14px);
+        font-weight: 600;
+        cursor: pointer;
+        border-radius: 18px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+        white-space: nowrap;
+    }
+
+    .topbar-auth .login-btn:hover,
+    .topbar-auth .register-btn:hover {
+        background-color: #333333;
+        transform: translateY(-2px);
+    }
+}
+
+
+.div-light {
+    font-style: italic;
+    font-size: 30px;
+    background-color:  #f8f6f2;
+    /* keep content out of the sidebar area */
+    position: relative;
+    left: var(--sidebar-width);
+    width: calc(100% - var(--sidebar-width));
+    min-height: 60vh;
+    /* comfortable responsive padding */
+    padding-left: clamp(8px, 1.8vw, 24px);
+    padding-right: clamp(12px, 3vw, 32px);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-family: "Gabriela";
+    line-height: 1.6;
+    color: #333;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.div-white {
+    font-style: italic;
+    font-size: 30px;
+    background-color: #ffffff;
+    /* keep content out of the sidebar area */
+    position: relative;
+    left: var(--sidebar-width);
+    width: calc(100% - var(--sidebar-width));
+    min-height: 60vh;
+    /* comfortable responsive padding */
+    padding-left: clamp(8px, 1.8vw, 24px);
+    padding-right: clamp(12px, 3vw, 32px);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-family: "Gabriela";
+    line-height: 1.6;
+    color: #333;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.h1-elegant {
+    font-style: normal;
+    font-family: "CormorantGaramond";
+    font-size: clamp(32px, 6vw, 80px);
+    text-shadow: 1px 2px 2px #333;
+    color: rgba(204, 155, 103, 0.733);
+    font-weight: normal;
+    letter-spacing: 1px;
+    margin: 0 0 20px 0;
+    text-align:center;
+    line-height: 1.2; 
+}
+
+/*SIDEBAR*/
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 80px;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 0;
+    z-index: 1000;
+    border-right: 1px solid #333;
+    transition: width 0.3s ease;
+    overflow: hidden;
+}
+
+.sidebar.expanded {
+    width: 200px;
+}
+
+.menu-toggle {
+    background: none;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    margin-bottom: 30px;
+    transition: transform 0.3s ease;
+}
+
+.sidebar.expanded .menu-toggle {
+    transform: rotate(90deg);
+}
+
+.sidebar-content {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    width: 100%;
+}
+
+.sidebar.expanded .sidebar-content {
+    opacity: 1;
+    visibility: visible;
+}
+
+.sidebar-button {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 24px;
+    padding: 20px 0;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-left: 25px;
+}
+
+.sidebar-button:hover {
+    background-color: #333333;
+}
+
+.sidebar-divider {
+    width: 80%;
+    height: 1px;
+    background-color: #555555;
+    margin: 10px auto;
+}
+
+/* Footer */
+.site-footer {
+    /* Semi-transparent look without double-darkening under sidebar region */
+    background-color: transparent;
+    color: #e3e3e3;
+    border-top: 1px solid #333;
+    position: relative;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    margin-top: auto; /* sticky footer: pushes to bottom when content short */
+    padding-left: var(--sidebar-width); /* keep content clear of sidebar */
+    padding-right: clamp(12px, 3vw, 28px);
+}
+.site-footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: var(--sidebar-width); /* no overlay under the sidebar to avoid compounding */
+    background-color: rgba(0,0,0,0.85);
+    pointer-events: none;
+}
+
+/* Ensure footer content sits above the overlay */
+.site-footer > * { position: relative; z-index: 1; }
+
+@media (max-width: 900px) {
+    .site-footer { left: 0; width: 100%; padding-left: 0; }
+}
+
+.footer-inner {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px 20px;
+    align-items: start;
+    padding: 16px clamp(12px, 3vw, 28px);
+}
+
+/* Ensure no extra blank space is reserved after footer */
+.footer-spacer { display: none; height: 0; }
+
+.footer-col h4 {
+    margin: 0 0 8px 0;
+    font-family: "CormorantGaramond";
+    font-size: clamp(18px, 3.6vw, 22px);
+    font-weight: 600;
+    color: rgba(204, 155, 103, 0.9);
+}
+
+.footer-col a,
+.footer-col p {
+    margin: 0;
+    color: #e3e3e3;
+    text-decoration: none;
+    font-family: "Gabriela";
+    font-size: clamp(14px, 3.4vw, 16px);
+}
+
+.footer-col a:hover { text-decoration: underline; }
+
+.footer-note {
+    border-top: 1px solid #333;
+    padding: 10px clamp(12px, 3vw, 28px);
+    text-align: center;
+    font-size: 12px;
+    color: #cfcfcf;
+}
+
+/* Map section (Kontakti) */
+.map-section { padding: 16px clamp(12px, 3vw, 28px); }
+.map-container {
+    /* allow the map width to grow to 2x its height */
+    margin: 16px auto 24px;
+    padding: clamp(8px, 2.5vw, 16px);
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    background: #ffffff;
+}
+
+/* Keep the same height but enforce a 2:1 visual ratio by constraining width via container */
+.map-frame {
+    height: clamp(360px, 70vh, 720px); /* keep height the same */
+    aspect-ratio: 2 / 1; /* width will be 2x the height */
+    width: auto;
+    max-width: 100%;
+    border: 0;
+    display: block;
+    margin-inline: auto;
+}
+
+/*LOGIN IN REGISTRACIJA*/
+.auth-buttons {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 15px;
+    z-index: 1001;
+}
+
+
+.login-btn, .register-btn {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    padding: 12px 24px;
+    font-family: 'Fraunces';
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.login-btn:hover, .register-btn:hover {
+    background-color: #333333;
+    
+    transform: translateY(-2px);/*zarad borderja da ostane ista velikost gumba*/
+}
+  
+
+
+

@@ -1,0 +1,387 @@
+/*1) Postavitev glede na sidebar (odmik in mreža kartic)*/
+
+
+/* Osnovna širina sidebar-a, ko je zložen */
+
+
+
+/* Ko je sidebar razširjen, povečamo odmike kartic v desno */
+
+
+
+/* Položaj kartic desno od sidebar-a + notranja odstavka levo/desno */
+
+.cards-container {
+    position: relative;
+    /* Global layout already reserves sidebar space on the parent section */
+    padding-left: clamp(8px, 1.8vw, 24px);
+    padding-right: clamp(12px, 3vw, 32px);
+    box-sizing: border-box;
+}
+
+
+/* Mreža kartic predavateljev – dinamično število stolpcev glede na prostor */
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px 22px;
+    /* vodoravni in navpični razmak med karticami */
+    align-items: stretch;
+    margin-top: 22px;
+}
+
+
+/* Vsaka oseba je ena kartica */
+
+.person-card {
+    display: block;
+}
+
+
+/*2) Kartice predavateljev (osnovni videz + hover overlay)*/
+
+
+/* Osnovni kartica slika in overlay */
+
+.card-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    /* portretno razmerje*/
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12), 0 4px 10px rgba(0, 0, 0, 0.06);
+    background: #ddd;
+    /* če slika še ni naložena */
+}
+
+
+/*klik na Kartice */
+
+.card-media.card-trigger {
+    border: none;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+
+/* Slika 100% okvirja*/
+
+.card-media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+
+/* Overlay: ob hover*/
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: transparent;
+    /* barvni sloj urejamo z ::before */
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 16px;
+    overflow: hidden;
+}
+
+
+/* Barvni preliv ob hover*/
+
+.overlay::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 100%;
+    /* iz dol na gor */
+    background: rgba(128, 128, 128, 0.65);
+    transition: top 320ms ease;
+}
+
+
+/* Vsebina overlay-ja na začetku prosojna */
+
+.overlay-content {
+    max-width: 85%;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 260ms ease 140ms, transform 260ms ease 140ms;
+}
+
+
+/* Ob hover premaknemo ::before navzgor in damo besedilo */
+
+.person-card:hover .overlay::before,
+.card-media:focus-within .overlay::before {
+    top: 0;
+}
+
+.person-card:hover .overlay .overlay-content,
+.card-media:focus-within .overlay .overlay-content {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* Ime predavatelja na kartici */
+
+.person-name {
+    font-size: 1.15rem;
+    margin: 0 0 8px 0;
+    line-height: 1.2;
+}
+
+
+/* <hr> v overlay-u*/
+
+.overlay-hr {
+    width: 60%;
+    margin: 6px auto 10px auto;
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+
+/*opis predavatelja v overlay-u */
+
+.person-desc {
+    font-size: 0.92rem;
+    line-height: 1.4;
+    margin: 0;
+    opacity: 0.95;
+}
+
+
+/* prilagodimo velikost zaslona */
+
+@media (max-width: 520px) {
+    .overlay-content {
+        max-width: 92%;
+    }
+    .person-name {
+        font-size: 1.05rem;
+    }
+    .person-desc {
+        font-size: 0.88rem;
+    }
+}
+
+
+/*3) Razširjen pogled (modal + zatemnitev + 3D flip animacija)*/
+
+
+/* Ko je element skrit z atributom hidden*/
+
+.card-overlay[hidden] {
+    display: none;
+}
+
+
+/* Zatemnitev ozadja + centriranje modula*/
+
+.card-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: grid;
+    place-items: center;
+    z-index: 1000;
+    overflow: hidden;
+    padding: 16px;
+    opacity: 0;
+    /* začetno skrito */
+    pointer-events: none;
+    /* začetno neaktivno za klik */
+    transition: opacity 300ms ease;
+}
+
+
+/* Modalno okno znotraj overlay-ja (vsebuje flip sceno in obe ploskvi) */
+
+.card-modal {
+    position: relative;
+    width: min(900px, 92vw);
+    aspect-ratio: 4/3;
+    border-radius: 16px;
+    background: transparent;
+    transform-origin: center center;
+    transition: transform 400ms ease, opacity 300ms ease;
+    opacity: 0;
+    /* fade-in skupaj z overlay-jem */
+}
+
+
+/* Vidno stanje overlay-ja*/
+
+.card-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+
+/* Ko je overlay viden, naj se tudi modal pojavi*/
+
+.card-overlay.show .card-modal {
+    opacity: 1;
+}
+
+
+/* Gumb za zapiranje "X"*/
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.65);
+    color: #fff;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.modal-close:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+
+/* 3D scena za flip 180 stopinj */
+
+.flip-scene {
+    perspective: 1200px;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    overflow: hidden;
+}
+
+
+/* Element, ki se vrti za 180° (sprednja/slika in zadnja/vsebina) */
+
+.flip-card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 600ms cubic-bezier(.2, .7, .2, 1);
+}
+
+
+/* Ko je overlay odprt -> rotacija po Y osi*/
+
+.card-overlay.show .flip-card {
+    transform: rotateY(180deg) scale(1);
+}
+
+
+/* Osnovni sloji flip kartice (sprednja/zadnja) */
+
+.flip-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: inherit;
+}
+
+
+/* Sprednja stran – prikazuje fotografijo */
+
+.flip-front {
+    background-size: cover;
+    background-position: center;
+}
+
+
+/* Zadnja stran – vsebina*/
+
+.flip-back {
+    transform: rotateY(180deg);
+    background: #222;
+    color: #fff;
+    display: grid;
+    place-items: center;
+    padding: clamp(16px, 3vw, 32px);
+}
+
+
+/* Vsebina znotraj modala*/
+
+.modal-content {
+    text-align: center;
+    max-width: 720px;
+    margin-inline: auto;
+}
+
+
+/* Ime in priimek*/
+
+.modal-name {
+    margin: 0 0 8px;
+    font-size: clamp(1.4rem, 2.5vw, 2.1rem);
+    line-height: 1.2;
+    color: #fff;
+}
+
+
+/* Starost in daljši opis*/
+
+.modal-age,
+.modal-bio {
+    margin: 0;
+    color: #efefef;
+}
+
+.modal-age {
+    font-size: clamp(1rem, 1.6vw, 1.2rem);
+    opacity: .95;
+}
+
+.modal-bio {
+    font-size: clamp(.95rem, 1.4vw, 1.1rem);
+    line-height: 1.55;
+}
+
+
+/* <hr> v modalu*/
+
+.modal-hr {
+    width: min(70%, 420px);
+    margin: 12px auto;
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, .6);
+}
+
+
+/*4) Odzivnost*/
+
+
+/* Na telefonu je modal bolj pokončen in X manjši */
+
+@media (max-width: 680px) {
+    .card-modal {
+        width: 96vw;
+        aspect-ratio: 10/13;
+    }
+    .modal-close {
+        width: 36px;
+        height: 36px;
+        font-size: 24px;
+    }
+}

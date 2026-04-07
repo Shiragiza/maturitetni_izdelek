@@ -1,0 +1,80 @@
+/* Sidebar-aware content offset: honors collapsed (80px) and expanded (200px) widths */
+
+ 
+
+
+/* Place the gallery to the right of the sidebar and keep breathing room on the right */
+
+.gallery-container {
+    position: relative;
+    /* Global layout already reserves sidebar space on the parent section */
+    padding-left: clamp(8px, 1.8vw, 24px);
+    padding-right: clamp(12px, 3vw, 32px);
+    box-sizing: border-box;
+}
+
+.video-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px 22px;
+    align-items: start;
+    margin-top: 24px;
+}
+
+@media (max-width: 1200px) {
+    .video-gallery {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .video-gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .video-gallery {
+        grid-template-columns: 1fr;
+    }
+}
+
+.video-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    background: #000;
+    aspect-ratio: 16 / 9;
+    /* keeps consistent thumbnail/player ratio */
+}
+
+.video-wrapper video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* shows poster nicely and crops letterboxing */
+}
+
+.video-title {
+    font-size: 1rem;
+    line-height: 1.4;
+    padding: 12px 14px 16px;
+    margin: 0;
+    color: #222;
+}
+
+@media (max-width: 480px) {
+    .video-title {
+        font-size: 0.95rem;
+    }
+}

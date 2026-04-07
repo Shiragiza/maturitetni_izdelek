@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="sl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Brivska Akademija</title>
+<link rel="stylesheet" href="CSS/base.css" />
+<link rel="stylesheet" href="CSS/layout.css" />
+<link rel="stylesheet" href="CSS/topbar.css" />
+<link rel="stylesheet" href="CSS/utilities.css" />
+</head>
+<body>
+
+
+<aside class="sidebar" id="sidebar">
+
+    <button class="menu-toggle" ><img style="height: 36px;" src="SLIKE\SIDEBAR\menu_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"></button>
+
+    <div class="sidebar-content">
+
+        <button class="sidebar-button" onclick="window.location.href='začetna_stran.html'" style="background-color: #333333;"><img src="SLIKE\SIDEBAR\home_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Home</button>
+        <div class="sidebar-divider"></div>
+        <button class="sidebar-button" onclick="window.location.href='Predavatelji.html'"><img src="SLIKE\SIDEBAR\person_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Predavatelji</button>
+        <div class="sidebar-divider"></div>
+        <button class="sidebar-button" onclick="window.location.href='posnetki.html'"><img src="SLIKE\SIDEBAR\video_library_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Posnetki</button>
+        <div class="sidebar-divider"></div>
+        <button class="sidebar-button" onclick="window.location.href='kontakti.html'"><img src="SLIKE\SIDEBAR\call_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Kontakti</button>
+
+    </div>
+</aside>
+
+<header class="topbar">
+    <nav class="topbar-nav">
+        <button class="topbar-button" onclick="window.location.href='začetna_stran.html'" style="background-color: #333333;"><img style="height: 24px;" src="SLIKE\SIDEBAR\home_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Home"> Home</button>
+        <button class="topbar-button" onclick="window.location.href='Predavatelji.html'"><img style="height: 24px;" src="SLIKE\SIDEBAR\person_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Predavatelji"> Predavatelji</button>
+        <button class="topbar-button" onclick="window.location.href='posnetki.html'"><img style="height: 24px;" src="SLIKE\SIDEBAR\video_library_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Posnetki"> Posnetki</button>
+        <button class="topbar-button" onclick="window.location.href='kontakti.html'"><img style="height: 24px;" src="SLIKE\SIDEBAR\call_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Kontakti"> Kontakti</button>
+    </nav>
+    <div class="topbar-auth">
+        <button class="register-btn" onclick="window.location.href='registracija.html'">Registracija</button>
+        <button class="login-btn" onclick="window.location.href='login.html'">Login</button>
+    </div>
+</header>
+
+<div class="auth-buttons">
+    <button class="register-btn" onclick="window.location.href='registracija.html'">Registracija</button>
+    <button class="login-btn" onclick="window.location.href='login.html'">Login</button>
+</div>
+
+
+
+<div class="div-light">
+    <h1 class="h1-elegant">Nimam pojma</h1>
+    <p>neki KRNEKI</p>
+</div>
+
+<div class="div-white">
+    <h1 class="h1-elegant">Neki pač</h1>
+</div>
+
+<div class="div-light">
+    <h1 class="h1-elegant">Nevem še</h1>
+</div>
+
+<div class="div-white">
+    <h1 class="h1-elegant">...</h1>
+    <p>neki KRNEKI</p>
+</div>
+
+<div style="text-align: center; padding: 40px 20px;">
+    <h2 class="h1-elegant">Rezervirajte termin</h2>
+    <p style="margin-bottom: 20px;">Želite rezervirati termin za striženje ali britje?</p>
+    <button class="register-btn" onclick="window.location.href='rezervacija.html'" style="padding: 15px 40px; font-size: 18px;">Rezerviraj termin</button>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>Email</h4>
+      <a href="mailto:matic.mikac@gmail.com">matic.mikac@gmail.com</a>
+    </div>
+    <div class="footer-col">
+      <h4>Telefon</h4>
+      <a href="tel:+38668657545">068 657 545</a>
+    </div>
+    <div class="footer-col">
+      <h4>Lokacija</h4>
+      <a href="https://www.google.com/maps?q=Slovenska+cesta+30" target="_blank" rel="noopener">Slovenska cesta 30</a>
+      <p>Ljubljana 1000</p>
+    </div>
+  </div>
+  <div class="footer-note">© Brivska Akademija</div>
+</footer>
+
+<script src="JAVAScript/sidebar_and_topbar.js"></script>
+<script src="JAVAScript/JS_login_and_regictracija.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        const user = await checkAuth();
+        await updateAuthUI(user);
+    });
+</script>
+</body>
+</html>
