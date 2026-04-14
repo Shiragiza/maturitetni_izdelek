@@ -1,46 +1,70 @@
-@font-face{
+@font-face {
     font-family: 'CormorantGaramond';
-    src:url(../FONTI/Cormorant_Garamond/CormorantGaramond-VariableFont_wght.ttf);
+    src: url(../FONTI/Cormorant_Garamond/CormorantGaramond-VariableFont_wght.ttf);
     font-family: 'Fraunces';
-    src:url(../FONTI/Fraunces/Fraunces-VariableFont_SOFT_WONK_opsz_wght.ttf);
-     font-family: 'Gabriela';
-    src:url(../FONTI/Gabriela/Gabriela-Regular.ttf);
+    src: url(../FONTI/Fraunces/Fraunces-VariableFont_SOFT_WONK_opsz_wght.ttf);
+    font-family: 'Gabriela';
+    src: url(../FONTI/Gabriela/Gabriela-Regular.ttf);
 }
 
+
 /* Sidebar width variable and expanded override for sibling content */
+
 :root {
     --sidebar-width: 80px;
 }
 
+
 /* Remove default body margin so bars touch screen edges */
-body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 
 /* Top bar (mobile/tablet) hidden by default, shown in small screens */
+
 .topbar {
     display: none;
 }
 
+
 /* When sidebar is expanded, increase the reserved space for main sections */
-.sidebar.expanded ~ .auth-buttons,
-.sidebar.expanded ~ .div-light,
-.sidebar.expanded ~ .div-white,
-.sidebar.expanded ~ .registration-container,
-.sidebar.expanded ~ .login-container,
-.sidebar.expanded ~ .site-footer {
+
+.sidebar.expanded~.auth-buttons,
+.sidebar.expanded~.div-light,
+.sidebar.expanded~.div-white,
+.sidebar.expanded~.rezervacija-container,
+.sidebar.expanded~.registration-container,
+.sidebar.expanded~.login-container,
+.sidebar.expanded~.site-footer {
     --sidebar-width: 200px;
 }
 
+
 /* Mobile/tablet layout: hide sidebar and floating auth buttons, show topbar */
+
 @media (max-width: 900px) {
     /* Fully hide sidebar including space and ensure it's not interactive */
-    .sidebar { display: none !important; width: 0 !important; height: 0 !important; overflow: hidden !important; }
-    .auth-buttons { display: none !important; }
-
+    .sidebar {
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+    }
+    .auth-buttons {
+        display: none !important;
+    }
     /* Reset reserved space since sidebar is hidden */
-    :root { --sidebar-width: 0px; }
-
+     :root {
+        --sidebar-width: 0px;
+    }
     .div-light,
     .div-white,
+    .rezervacija-container,
     .registration-container,
     .login-container {
         left: 0;
@@ -48,7 +72,6 @@ body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
         padding-left: clamp(10px, 4vw, 28px);
         padding-right: clamp(10px, 4vw, 28px);
     }
-
     /* Top bar container: full-bleed, wraps content, sticks to top */
     .topbar {
         position: sticky;
@@ -67,7 +90,6 @@ body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
         box-sizing: border-box;
         width: 100%;
     }
-
     /* Make topbar content responsive and non-overlapping */
     .topbar-nav {
         display: flex;
@@ -77,7 +99,6 @@ body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
         align-items: center;
         overflow-x: auto;
     }
-
     .topbar-button {
         background: none;
         border: none;
@@ -95,11 +116,12 @@ body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
         text-overflow: ellipsis;
         overflow: hidden;
     }
-
-    .topbar-button img { height: clamp(18px, 4vw, 24px); }
-
-    .topbar-button:hover { background-color: #333333; }
-
+    .topbar-button img {
+        height: clamp(18px, 4vw, 24px);
+    }
+    .topbar-button:hover {
+        background-color: #333333;
+    }
     /* Right side: auth buttons inline, scalable */
     .topbar-auth {
         display: flex;
@@ -107,7 +129,6 @@ body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
         gap: 8px;
         align-items: center;
     }
-
     .topbar-auth .login-btn,
     .topbar-auth .register-btn {
         background-color: rgba(0, 0, 0, 0.7);
@@ -124,7 +145,6 @@ body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
         display: inline-block;
         white-space: nowrap;
     }
-
     .topbar-auth .login-btn:hover,
     .topbar-auth .register-btn:hover {
         background-color: #333333;
@@ -133,10 +153,37 @@ body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
 }
 
 
+/* PC: username next to logout button */
+
+.topbar-auth {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.topbar-auth .topbar-user {
+    color: rgba(204, 155, 103, 0.733);
+    font-family: 'Fraunces';
+    font-size: 14px;
+    margin-right: 8px;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1;
+    padding: 8px 0;
+}
+
+.topbar-auth .login-btn,
+.topbar-auth .register-btn {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
 .div-light {
     font-style: italic;
-    font-size: 30px;
-    background-color:  #f8f6f2;
+    font-size: 18px;
+    background-color: #f8f6f2;
     /* keep content out of the sidebar area */
     position: relative;
     left: var(--sidebar-width);
@@ -153,14 +200,14 @@ body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
     flex-direction: column;
     text-align: center;
     font-family: "Gabriela";
-    line-height: 1.6;
+    line-height: 1.2;
     color: #333;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .div-white {
     font-style: italic;
-    font-size: 30px;
+    font-size: 18px;
     background-color: #ffffff;
     /* keep content out of the sidebar area */
     position: relative;
@@ -178,9 +225,9 @@ body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
     flex-direction: column;
     text-align: center;
     font-family: "Gabriela";
-    line-height: 1.6;
+    line-height: 0.8;
     color: #333;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .h1-elegant {
@@ -192,11 +239,13 @@ body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
     font-weight: normal;
     letter-spacing: 1px;
     margin: 0 0 20px 0;
-    text-align:center;
-    line-height: 1.2; 
+    text-align: center;
+    line-height: 1.2;
 }
 
+
 /*SIDEBAR*/
+
 .sidebar {
     position: fixed;
     left: 0;
@@ -269,7 +318,9 @@ body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
     margin: 10px auto;
 }
 
+
 /* Footer */
+
 .site-footer {
     /* Semi-transparent look without double-darkening under sidebar region */
     background-color: transparent;
@@ -280,26 +331,51 @@ body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
     width: 100%;
     box-sizing: border-box;
     margin: 0;
-    margin-top: auto; /* sticky footer: pushes to bottom when content short */
-    padding-left: var(--sidebar-width); /* keep content clear of sidebar */
+    margin-top: auto;
+    /* sticky footer: pushes to bottom when content short */
+    padding-left: var(--sidebar-width);
+    /* keep content clear of sidebar */
     padding-right: clamp(12px, 3vw, 28px);
 }
+
 .site-footer::before {
     content: "";
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
-    left: var(--sidebar-width); /* no overlay under the sidebar to avoid compounding */
-    background-color: rgba(0,0,0,0.85);
+    left: var(--sidebar-width);
+    /* no overlay under the sidebar to avoid compounding */
+    background-color: rgba(0, 0, 0, 0.85);
     pointer-events: none;
 }
 
+
 /* Ensure footer content sits above the overlay */
-.site-footer > * { position: relative; z-index: 1; }
+
+.site-footer>* {
+    position: relative;
+    z-index: 1;
+}
 
 @media (max-width: 900px) {
-    .site-footer { left: 0; width: 100%; padding-left: 0; }
+    .site-footer {
+        left: 0;
+        width: 100%;
+        padding-left: 0;
+    }
+    .footer-inner {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 30px !important;
+        padding: 20px !important;
+        grid-template-columns: unset !important;
+    }
+    .footer-col {
+        width: 100% !important;
+        text-align: center !important;
+        display: block !important;
+    }
 }
 
 .footer-inner {
@@ -310,8 +386,8 @@ body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
     padding: 16px clamp(12px, 3vw, 28px);
 }
 
+
 /* Ensure no extra blank space is reserved after footer */
-.footer-spacer { display: none; height: 0; }
 
 .footer-col h4 {
     margin: 0 0 8px 0;
@@ -330,7 +406,9 @@ body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
     font-size: clamp(14px, 3.4vw, 16px);
 }
 
-.footer-col a:hover { text-decoration: underline; }
+.footer-col a:hover {
+    text-decoration: underline;
+}
 
 .footer-note {
     border-top: 1px solid #333;
@@ -340,21 +418,30 @@ body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
     color: #cfcfcf;
 }
 
+
 /* Map section (Kontakti) */
-.map-section { padding: 16px clamp(12px, 3vw, 28px); }
+
+.map-section {
+    padding: 16px clamp(12px, 3vw, 28px);
+}
+
 .map-container {
     /* allow the map width to grow to 2x its height */
     margin: 16px auto 24px;
     padding: clamp(8px, 2.5vw, 16px);
     border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
     background: #ffffff;
 }
 
+
 /* Keep the same height but enforce a 2:1 visual ratio by constraining width via container */
+
 .map-frame {
-    height: clamp(360px, 70vh, 720px); /* keep height the same */
-    aspect-ratio: 2 / 1; /* width will be 2x the height */
+    height: clamp(360px, 70vh, 720px);
+    /* keep height the same */
+    aspect-ratio: 2 / 1;
+    /* width will be 2x the height */
     width: auto;
     max-width: 100%;
     border: 0;
@@ -362,18 +449,32 @@ body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
     margin-inline: auto;
 }
 
+
 /*LOGIN IN REGISTRACIJA*/
+
 .auth-buttons {
     position: fixed;
     top: 20px;
     right: 20px;
     display: flex;
+    align-items: center;
     gap: 15px;
     z-index: 1001;
 }
 
+.auth-buttons .auth-user-name {
+    display: inline-block;
+    vertical-align: middle;
+}
 
-.login-btn, .register-btn {
+.auth-buttons .login-btn,
+.auth-buttons .register-btn {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.login-btn,
+.register-btn {
     background-color: rgba(0, 0, 0, 0.7);
     color: #ffffff;
     border: 2px solid #ffffff;
@@ -388,12 +489,107 @@ body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
     display: inline-block;
 }
 
-.login-btn:hover, .register-btn:hover {
+.login-btn:hover,
+.register-btn:hover {
     background-color: #333333;
-    
-    transform: translateY(-2px);/*zarad borderja da ostane ista velikost gumba*/
+    transform: translateY(-2px);
+    /*zarad borderja da ostane ista velikost gumba*/
 }
-  
 
 
+/*REZERVACIJA CONTAINER*/
 
+.rezervacija-container {
+    display: flex;
+    position: relative;
+    left: var(--sidebar-width);
+    width: calc(100% - var(--sidebar-width));
+    min-height: 80vh;
+    box-sizing: border-box;
+}
+
+.cenik-half {
+    flex: 1;
+    background-color: #f8f6f2;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+.cenik-list {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.cenik-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+    border-bottom: 1px solid rgba(204, 155, 103, 0.3);
+    padding-bottom: 8px;
+}
+
+.cenik-title {
+    font-family: "CormorantGaramond";
+    font-size: clamp(18px, 2.5vw, 24px);
+    color: #333;
+    font-weight: 600;
+}
+
+.cenik-price {
+    font-family: "Fraunces";
+    font-size: clamp(20px, 3vw, 28px);
+    color: rgba(204, 155, 103, 0.9);
+    font-weight: 700;
+}
+
+.cenik-desc {
+    font-family: "Gabriela";
+    font-size: clamp(14px, 1.8vw, 16px);
+    color: #555;
+    margin: 0 0 25px 0;
+    line-height: 1.5;
+}
+
+.gumb-half {
+    flex: 1;
+    background-color: #ffffff;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.gumb-half p {
+    font-family: "Gabriela";
+    font-size: clamp(16px, 2vw, 20px);
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.gumb-half .register-btn {
+    padding: 15px 40px;
+    font-size: 18px;
+}
+
+@media (max-width: 900px) {
+    .rezervacija-container {
+        flex-direction: column;
+        left: 0;
+        width: 100%;
+    }
+    .cenik-half,
+    .gumb-half {
+        padding: 30px 20px;
+    }
+    .cenik-half {
+        min-height: auto;
+    }
+    .gumb-half {
+        min-height: 40vh;
+    }
+}
