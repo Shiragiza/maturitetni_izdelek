@@ -26,7 +26,13 @@ function showSuccess(message) {
 async function checkAuth() {
     try {
         const result = await apiRequest('/auth/me');
-        return result.user || null;
+        if (result && result.user) {
+            return result.user;
+        }
+        if (result && (result.id || result.email)) {
+            return result;
+        }
+        return null;
     } catch (e) {
         return null;
     }
@@ -40,12 +46,12 @@ async function updateAuthUI(user) {
 
     if (user) {
         topbarAuth.innerHTML = `
-      <span style="color: rgba(204, 155, 103, 0.733); margin-right: 10px;">${user.first_name}</span>
+      <span class="topbar-user">${user.first_name}</span>
       ${user.role === 'admin' ? '<button class="register-btn" onclick="window.location.href=\'admin.html\'">Admin</button>' : ''}
       <button class="login-btn" onclick="logout()">Odjava</button>
     `;
         authButtons.innerHTML = `
-      <span style="color: rgba(204, 155, 103, 0.733); margin-right: 10px;">${user.first_name}</span>
+      <span class="auth-user-name" style="color: rgba(204, 155, 103, 0.733); margin-right: 10px;">${user.first_name}</span>
       <button class="login-btn" onclick="logout()">Odjava</button>
     `;
     } else {
@@ -123,7 +129,6 @@ document.addEventListener('DOMContentLoaded', async() => {
 
             try {
                 const result = await apiRequest('/auth/login', 'POST', { email, password });
-                console.log('Login result:', result);
                 if (result.error) {
                     showError(result.error);
                 } else {

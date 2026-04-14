@@ -1,15 +1,15 @@
-/*SIDEBAR + CARD MODAL (Predavatelji)*/ 
+/*SIDEBAR + CARD MODAL (Brivci)*/
 document.addEventListener('DOMContentLoaded', function() {
     // Sidebar toggle
     const sidebar = document.getElementById('sidebar');
     const menuToggle = document.querySelector('.menu-toggle');
     if (menuToggle) {
         menuToggle.addEventListener('click', function() {
-            sidebar?.classList.toggle('expanded');
+            sidebar ? .classList.toggle('expanded');
         });
     }
 
-    // CARD FLIP/EXPAND - Predavatelji
+    // CARD FLIP/EXPAND - Brivci
     const overlay = document.querySelector('.card-overlay');
     const modal = document.querySelector('.card-modal');
     const flipFront = document.querySelector('.flip-front');
@@ -24,12 +24,12 @@ document.addEventListener('DOMContentLoaded', function() {
     function openCard(trigger) {
         if (!overlay || !modal || !flipFront) return;
         const card = trigger.closest('.person-card');
-        const first = card?.dataset.firstname || '';
-        const last = card?.dataset.lastname || '';
-        const age = card?.dataset.age || '';
-        const bio = card?.dataset.bio || '';
+        const first = card ? .dataset.firstname || '';
+        const last = card ? .dataset.lastname || '';
+        const age = card ? .dataset.age || '';
+        const bio = card ? .dataset.bio || '';
         const img = trigger.querySelector('img');
-        const bg = img?.getAttribute('src') || '';
+        const bg = img ? .getAttribute('src') || '';
 
         if (nameEl) nameEl.textContent = `${first} ${last}`.trim();
         if (ageEl) ageEl.textContent = age ? `Starost: ${age}` : '';
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
         void overlay.offsetWidth; // reflow for transition
         overlay.classList.add('show');
         lastFocused = document.activeElement;
-        closeBtn?.focus();
+        closeBtn ? .focus();
         document.body.style.overflow = 'hidden';
     }
 
@@ -69,8 +69,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    closeBtn?.addEventListener('click', closeCard);
-    overlay?.addEventListener('click', (e) => {
+    closeBtn ? .addEventListener('click', closeCard);
+    overlay ? .addEventListener('click', (e) => {
         if (e.target === overlay) closeCard();
     });
     document.addEventListener('keydown', (e) => {
