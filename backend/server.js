@@ -10,6 +10,7 @@ const paymentRoutes = require('./routes/payment');
 const videoRoutes = require('./routes/videos');
 const forgotPasswordRoutes = require('./routes/forgotPassword');
 const appointmentsRoutes = require('./routes/appointments');
+const barbersRoutes = require('./routes/barbers');
 
 const app = express();
 
@@ -35,6 +36,7 @@ app.use('/api/payment', paymentRoutes);
 app.use('/api/videos', videoRoutes);
 app.use('/api/forgot-password', forgotPasswordRoutes);
 app.use('/api/appointments', appointmentsRoutes);
+app.use('/api/barbers', barbersRoutes);
 
 app.get('/api/check-access', async (req, res) => {
   if (!req.session || !req.session.userId) {

@@ -84,7 +84,7 @@ const initDatabase = async () => {
     CREATE TABLE IF NOT EXISTS appointments (
       id INT AUTO_INCREMENT PRIMARY KEY,
       user_id INT NOT NULL,
-      barber_name VARCHAR(100) NOT NULL,
+      barber_id INT,
       appointment_date DATE NOT NULL,
       appointment_time TIME NOT NULL,
       status ENUM('pending', 'confirmed', 'completed', 'cancelled') DEFAULT 'pending',
@@ -92,6 +92,25 @@ const initDatabase = async () => {
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
       FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    )
+  `);
+
+  try {
+    await connection.query('ALTER TABLE appointments ADD COLUMN barber_id INT AFTER user_id');
+  } catch (e) {
+    // Column already exists
+  }
+
+  await connection.query(`
+    CREATE TABLE IF NOT EXISTS barbers (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      name VARCHAR(100) NOT NULL,
+      description TEXT,
+      image_url VARCHAR(500),
+      age INT,
+      active BOOLEAN DEFAULT TRUE,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     )
   `);
 
@@ -125,6 +144,20 @@ const initDatabase = async () => {
     console.log('Sample videos created');
   } else {
     console.log('Videos already exist');
+  }
+
+  const [barbersExist] = await connection.query('SELECT COUNT(*) as count FROM barbers');
+  if (barbersExist[0].count === 0) {
+    await connection.query(`
+      INSERT INTO barbers (name, description, image_url, age) VALUES
+      ('Luka Oven', 'Mojster brivec z večletnimi izkušnjami', 'SLIKE/brivci/luka.jpg', 23),
+      ('Đorđe Petrović', 'Strokovnjak za nego brade', 'SLIKE/brivci/djole.jpg', 34),
+      ('Žan Novak', 'Britar tehnik britja in vzdrževanja orodij', 'SLIKE/brivci/zan.jpg', 27),
+      ('Mladen Kovač', 'Brivec sodobnega časa', 'SLIKE/brivci/mladen.jpg', 31)
+    `);
+    console.log('Sample barbers created');
+  } else {
+    console.log('Barbers already exist');
   }
 
   await connection.end();

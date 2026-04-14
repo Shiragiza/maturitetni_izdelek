@@ -10,9 +10,10 @@ router.get('/', requireAuth, async (req, res) => {
         }
 
         const [appointments] = await pool.query(
-            `SELECT a.*, u.first_name, u.last_name, u.email, u.phone 
+            `SELECT a.id, a.appointment_date, a.appointment_time, a.status, a.notes, a.created_at,
+                    COALESCE(b.name, a.barber_name) as barber_name
              FROM appointments a 
-             JOIN users u ON a.user_id = u.id 
+             LEFT JOIN barbers b ON a.barber_id = b.id
              WHERE a.user_id = ?
              ORDER BY a.appointment_date DESC, a.appointment_time DESC`,
             [req.session.userId]
@@ -31,15 +32,19 @@ router.post('/', requireAuth, async (req, res) => {
             return res.status(401).json({ error: 'Niste prijavljeni' });
         }
 
-        const { barber_name, appointment_date, appointment_time, notes } = req.body;
+        const { barber_id, appointment_date, appointment_time, notes } = req.body;
 
-        if (!barber_name || !appointment_date || !appointment_time) {
+        if (!barber_id || !appointment_date || !appointment_time) {
             return res.status(400).json({ error: 'Izpolnite vsa polja' });
         }
 
+        const barberIdNum = parseInt(barber_id);
+        const [barber] = await pool.query('SELECT name FROM barbers WHERE id = ?', [barberIdNum]);
+        const barberName = barber.length > 0 ? barber[0].name : 'Neznan';
+
         const [result] = await pool.query(
-            'INSERT INTO appointments (user_id, barber_name, appointment_date, appointment_time, notes) VALUES (?, ?, ?, ?, ?)',
-            [req.session.userId, barber_name, appointment_date, appointment_time, notes || '']
+            'INSERT INTO appointments (user_id, barber_id, barber_name, appointment_date, appointment_time, notes) VALUES (?, ?, ?, ?, ?, ?)',
+            [req.session.userId, barberIdNum, barberName, appointment_date, appointment_time, notes || '']
         );
 
         res.json({ success: true, message: 'Termin uspešno rezerviran', id: result.insertId });

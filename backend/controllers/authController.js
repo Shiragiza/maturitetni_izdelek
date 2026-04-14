@@ -18,7 +18,7 @@ const register = async (req, res) => {
 
     const [result] = await pool.query(
       'INSERT INTO users (first_name, last_name, email, phone, password_hash, has_access) VALUES (?, ?, ?, ?, ?, ?)',
-      [first_name, last_name, email, phone, password_hash, false]
+      [first_name, last_name, email, phone, password_hash, 0]
     );
 
     res.status(201).json({ message: 'Registracija uspešna', userId: result.insertId });
