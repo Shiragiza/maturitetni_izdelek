@@ -1,104 +1,185 @@
 <!doctype html>
 <html lang="sl">
+
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Brivska Akademija</title>
-<link rel="stylesheet" href="CSS/base.css" />
-<link rel="stylesheet" href="CSS/layout.css" />
-<link rel="stylesheet" href="CSS/topbar.css" />
-<link rel="stylesheet" href="CSS/utilities.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Brivska Akademija</title>
+    <link rel="stylesheet" href="CSS/base.css" />
+    <link rel="stylesheet" href="CSS/layout.css" />
+    <link rel="stylesheet" href="CSS/style.css" />
+    <link rel="stylesheet" href="CSS/topbar.css" />
+    <link rel="stylesheet" href="CSS/utilities.css" />
 </head>
+
 <body>
 
 
-<aside class="sidebar" id="sidebar">
+    <aside class="sidebar" id="sidebar">
 
-    <button class="menu-toggle" ><img style="height: 36px;" src="SLIKE\SIDEBAR\menu_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"></button>
+        <button class="menu-toggle"><img style="height: 36px;" src="SLIKE\SIDEBAR\menu_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"></button>
 
-    <div class="sidebar-content">
+        <div class="sidebar-content">
 
-        <button class="sidebar-button" onclick="window.location.href='začetna_stran.html'" style="background-color: #333333;"><img src="SLIKE\SIDEBAR\home_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Home</button>
-        <div class="sidebar-divider"></div>
-        <button class="sidebar-button" onclick="window.location.href='Predavatelji.html'"><img src="SLIKE\SIDEBAR\person_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Predavatelji</button>
-        <div class="sidebar-divider"></div>
-        <button class="sidebar-button" onclick="window.location.href='posnetki.html'"><img src="SLIKE\SIDEBAR\video_library_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Posnetki</button>
-        <div class="sidebar-divider"></div>
-        <button class="sidebar-button" onclick="window.location.href='kontakti.html'"><img src="SLIKE\SIDEBAR\call_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Kontakti</button>
+            <button class="sidebar-button" onclick="window.location.href='začetna_stran.html'" style="background-color: #333333;"><img src="SLIKE\SIDEBAR\home_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Home</button>
+            <div class="sidebar-divider"></div>
+            <button class="sidebar-button" onclick="window.location.href='Brivci.html'"><img src="SLIKE\SIDEBAR\person_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Brivci</button>
+            <div class="sidebar-divider"></div>
+            <button class="sidebar-button" onclick="window.location.href='posnetki.html'"><img src="SLIKE\SIDEBAR\video_library_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Posnetki</button>
+            <div class="sidebar-divider"></div>
+            <button class="sidebar-button" onclick="window.location.href='kontakti.html'"><img src="SLIKE\SIDEBAR\call_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Kontakti</button>
 
-    </div>
-</aside>
+        </div>
+    </aside>
 
-<header class="topbar">
-    <nav class="topbar-nav">
-        <button class="topbar-button" onclick="window.location.href='začetna_stran.html'" style="background-color: #333333;"><img style="height: 24px;" src="SLIKE\SIDEBAR\home_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Home"> Home</button>
-        <button class="topbar-button" onclick="window.location.href='Predavatelji.html'"><img style="height: 24px;" src="SLIKE\SIDEBAR\person_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Predavatelji"> Predavatelji</button>
-        <button class="topbar-button" onclick="window.location.href='posnetki.html'"><img style="height: 24px;" src="SLIKE\SIDEBAR\video_library_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Posnetki"> Posnetki</button>
-        <button class="topbar-button" onclick="window.location.href='kontakti.html'"><img style="height: 24px;" src="SLIKE\SIDEBAR\call_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Kontakti"> Kontakti</button>
-    </nav>
-    <div class="topbar-auth">
+    <header class="topbar">
+        <nav class="topbar-nav">
+            <button class="topbar-button" onclick="window.location.href='začetna_stran.html'" style="background-color: #333333;"><img style="height: 24px;" src="SLIKE\SIDEBAR\home_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Home"> Home</button>
+            <button class="topbar-button" onclick="window.location.href='Brivci.html'"><img style="height: 24px;" src="SLIKE\SIDEBAR\person_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Brivci"> Brivci</button>
+            <button class="topbar-button" onclick="window.location.href='posnetki.html'"><img style="height: 24px;" src="SLIKE\SIDEBAR\video_library_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Posnetki"> Posnetki</button>
+            <button class="topbar-button" onclick="window.location.href='kontakti.html'"><img style="height: 24px;" src="SLIKE\SIDEBAR\call_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Kontakti"> Kontakti</button>
+        </nav>
+        <div class="topbar-auth">
+            <button class="register-btn" onclick="window.location.href='registracija.html'">Registracija</button>
+            <button class="login-btn" onclick="window.location.href='login.html'">Login</button>
+        </div>
+    </header>
+
+    <div class="auth-buttons">
         <button class="register-btn" onclick="window.location.href='registracija.html'">Registracija</button>
         <button class="login-btn" onclick="window.location.href='login.html'">Login</button>
     </div>
-</header>
-
-<div class="auth-buttons">
-    <button class="register-btn" onclick="window.location.href='registracija.html'">Registracija</button>
-    <button class="login-btn" onclick="window.location.href='login.html'">Login</button>
-</div>
 
 
 
-<div class="div-light">
-    <h1 class="h1-elegant">Nimam pojma</h1>
-    <p>neki KRNEKI</p>
-</div>
-
-<div class="div-white">
-    <h1 class="h1-elegant">Neki pač</h1>
-</div>
-
-<div class="div-light">
-    <h1 class="h1-elegant">Nevem še</h1>
-</div>
-
-<div class="div-white">
-    <h1 class="h1-elegant">...</h1>
-    <p>neki KRNEKI</p>
-</div>
-
-<div style="text-align: center; padding: 40px 20px;">
-    <h2 class="h1-elegant">Rezervirajte termin</h2>
-    <p style="margin-bottom: 20px;">Želite rezervirati termin za striženje ali britje?</p>
-    <button class="register-btn" onclick="window.location.href='rezervacija.html'" style="padding: 15px 40px; font-size: 18px;">Rezerviraj termin</button>
-</div>
-
-<footer class="site-footer">
-  <div class="footer-inner">
-    <div class="footer-col">
-      <h4>Email</h4>
-      <a href="mailto:matic.mikac@gmail.com">matic.mikac@gmail.com</a>
+    <div class="div-white video-bg">
+        <video class="video-desktop" autoplay muted playsinline>
+            <source src="SLIKE/posnetki/začetna_stran/home_page.mp4" type="video/mp4">
+        </video>
+        <video class="video-mobile" autoplay muted playsinline>
+            <source src="SLIKE/posnetki/začetna_stran/mobile_home_page.mp4" type="video/mp4">
+        </video>
+        <div class="video-content">
+        </div>
     </div>
-    <div class="footer-col">
-      <h4>Telefon</h4>
-      <a href="tel:+38668657545">068 657 545</a>
-    </div>
-    <div class="footer-col">
-      <h4>Lokacija</h4>
-      <a href="https://www.google.com/maps?q=Slovenska+cesta+30" target="_blank" rel="noopener">Slovenska cesta 30</a>
-      <p>Ljubljana 1000</p>
-    </div>
-  </div>
-  <div class="footer-note">© Brivska Akademija</div>
-</footer>
 
-<script src="JAVAScript/sidebar_and_topbar.js"></script>
-<script src="JAVAScript/JS_login_and_regictracija.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', async () => {
-        const user = await checkAuth();
-        await updateAuthUI(user);
-    });
-</script>
+    <div class="div-light">
+        <h1 class="h1-elegant">Brivska akademija</h1>
+        <hr>
+        <p>Dobrodošli v brivnici, kjer se tradicija vrhunskega mojstrstva sreča s sodobno eleganco.</p>
+        <p>Vsak detajl je skrbno izbran, vsak gib natančno premišljen — ker pri nas ne gre le za striženje, temveč za izkušnjo na najvišjem nivoju.</p>
+
+        <p>V ambientu prefinjenega udobja, ob zvokih umirjene glasbe in pridihu ekskluzivnosti, poskrbimo, da vaš videz odraža samozavest, stil in brezčasen razred.</p>
+        <p>Naši barberji niso le frizerji — so umetniki, ki razumejo pomen popolne linije, čistega fade-a in dovršene brade.</p>
+
+    </div>
+
+    <div class="div-white hero-bg">
+        <img src="SLIKE/galerija.png">
+    </div>
+
+
+    <div class="div-light">
+        <div class="reservation-split">
+            <div class="price-list-section">
+                <h2 class="h1-elegant">Cenik storitev</h2>
+                <div class="services-list">
+                    <div class="service-item">
+                        <hr>
+                        <div class="service-content">
+                            <div class="service-name">Striženje in urejanje pričeske</div>
+                            <div class="service-description">Z brivskim aparatom uredimo vašo brado, da boste v hipu pripravljeni na nov dan.</div>
+                            <div class="service-price">30 €</div>
+                        </div>
+                    </div>
+                    <div class="service-item">
+                        <hr>
+                        <div class="service-content">
+                            <div class="service-name">Brada na hitro</div>
+                            <div class="service-description">Učinkovita storitev osvežitve moškega videza.</div>
+                            <div class="service-price">15 €</div>
+                        </div>
+                    </div>
+                    <div class="service-item">
+                        <hr>
+                        <div class="service-content">
+                            <div class="service-name">Britje in urejanje brade</div>
+                            <div class="service-description">Celovito urejanje brade vključuje posvet, oblikovanje, pripravo kože z vročo brisačo ter britje z zaključkom (losjon, aftershave, olje). Storitev traja do 45 minut.</div>
+                            <div class="service-price">25 €</div>
+                        </div>
+                    </div>
+                    <div class="service-item">
+                        <hr>
+                        <div class="service-content">
+                            <div class="service-name">Gospodska brivska izkušnja</div>
+                            <div class="service-description">Poleg urejanja brade vključuje še striženje pričeske ter celoten brivski ritual s pripravo kože in nego. Traja do 1 ure 15 minut.</div>
+                            <div class="service-price">35 €</div>
+                        </div>
+                    </div>
+                    <div class="service-item">
+                        <hr>
+                        <div class="service-content">
+                            <div class="service-name">Gospodska brivska izkušnja, striženje ter urejanje brade</div>
+                            <div class="service-description">Storitev pranja las vključuje nežno pranje las in lasišča, sledi masaža za sprostitev, nato pa izpiranje. Po pranju lasjem dodamo primeren izdelek za nego. </div>
+                            <div class="service-price">60 €</div>
+                        </div>
+                    </div>
+                    <div class="service-item">
+                        <hr>
+                        <div class="service-content">
+                            <div class="service-name">Pranje las</div>
+                            <div class="service-description">Storitev pranja las vključuje nežno pranje las in lasišča, sledi masaža za sprostitev, nato pa izpiranje.</div>
+                            <div class="service-price">12 €</div>
+                        </div>
+                    </div>
+                    <div class="service-item">
+                        <hr>
+                        <div class="service-content">
+                            <div class="service-name">Darilni bon</div>
+                            <div class="service-description">Darilni bon je mogoče uporabiti za plačilo katere koli storitve, ki jih ponujamo</div>
+                            <div class="service-price">20-200 €</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reservation-image-section">
+                <div class="reservation-button-wrapper">
+                    <h2 class="h1-elegant">Rezervirajte termin</h2>
+                    <p>Želite rezervirati termin za striženje ali britje?</p>
+                    <button class="register-btn" onclick="window.location.href='rezervacija.html'" style="padding: 15px 40px; font-size: 18px;">Rezerviraj termin</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-col">
+                <h4>Email</h4>
+                <a href="mailto:matic.mikac@gmail.com">matic.mikac@gmail.com</a>
+            </div>
+            <div class="footer-col">
+                <h4>Telefon</h4>
+                <a href="tel:+38668657545">068 657 545</a>
+            </div>
+            <div class="footer-col">
+                <h4>Lokacija</h4>
+                <a href="https://www.google.com/maps?q=Slovenska+cesta+30" target="_blank" rel="noopener">Slovenska cesta 30</a>
+                <p>Ljubljana 1000</p>
+            </div>
+        </div>
+        <div class="footer-note">© Brivska Akademija</div>
+    </footer>
+
+    <script src="JAVAScript/sidebar_and_topbar.js"></script>
+    <script src="JAVAScript/JS_login_and_regictracija.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async() => {
+            const user = await checkAuth();
+            await updateAuthUI(user);
+        });
+    </script>
 </body>
+
 </html>

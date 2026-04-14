@@ -7,6 +7,7 @@
     <title>Plačilo preklicano - Brivska Akademija</title>
     <link rel="stylesheet" href="CSS/base.css" />
     <link rel="stylesheet" href="CSS/layout.css" />
+    <link rel="stylesheet" href="CSS/style.css" />
     <link rel="stylesheet" href="CSS/topbar.css" />
     <link rel="stylesheet" href="CSS/utilities.css" />
     <link rel="stylesheet" href="CSS/css_login_in_registracija.css" />
@@ -19,7 +20,7 @@
         <div class="sidebar-content">
             <button class="sidebar-button" onclick="window.location.href='začetna_stran.html'"><img src="SLIKE\SIDEBAR\home_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Home</button>
             <div class="sidebar-divider"></div>
-            <button class="sidebar-button" onclick="window.location.href='Predavatelji.html'"><img src="SLIKE\SIDEBAR\person_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Predavatelji</button>
+            <button class="sidebar-button" onclick="window.location.href='Brivci.html'"><img src="SLIKE\SIDEBAR\person_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Brivci</button>
             <div class="sidebar-divider"></div>
             <button class="sidebar-button" onclick="window.location.href='posnetki.html'"><img src="SLIKE\SIDEBAR\video_library_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Posnetki</button>
             <div class="sidebar-divider"></div>
@@ -29,7 +30,7 @@
     <header class="topbar">
         <nav class="topbar-nav">
             <button class="topbar-button" onclick="window.location.href='začetna_stran.html'"><img style="height: 24px;" src="SLIKE\SIDEBAR\home_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Home"> Home</button>
-            <button class="topbar-button" onclick="window.location.href='Predavatelji.html'"><img style="height: 24px;" src="SLIKE\SIDEBAR\person_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Predavatelji"> Predavatelji</button>
+            <button class="topbar-button" onclick="window.location.href='Brivci.html'"><img style="height: 24px;" src="SLIKE\SIDEBAR\person_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Brivci"> Brivci</button>
             <button class="topbar-button" onclick="window.location.href='posnetki.html'"><img style="height: 24px;" src="SLIKE\SIDEBAR\video_library_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Posnetki"> Posnetki</button>
             <button class="topbar-button" onclick="window.location.href='kontakti.html'"><img style="height: 24px;" src="SLIKE\SIDEBAR\call_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Kontakti"> Kontakti</button>
         </nav>
@@ -55,7 +56,7 @@
     <script src="JAVAScript/sidebar_and_topbar.js"></script>
     <script src="JAVAScript/JS_login_and_regictracija.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', async () => {
+        document.addEventListener('DOMContentLoaded', async() => {
             const user = await checkAuth();
             await updateAuthUI(user);
         });

@@ -7,15 +7,17 @@
     <title>Admin - Brivska Akademija</title>
     <link rel="stylesheet" href="CSS/base.css" />
     <link rel="stylesheet" href="CSS/layout.css" />
+    <link rel="stylesheet" href="CSS/style.css" />
     <link rel="stylesheet" href="CSS/topbar.css" />
     <link rel="stylesheet" href="CSS/utilities.css" />
     <link rel="stylesheet" href="CSS/css_login_in_registracija.css" />
     <style>
         .admin-container { max-width: 1200px; margin: 0 auto; padding: 20px; }
         .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-        .admin-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        .admin-table th, .admin-table td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
-        .admin-table th { background-color: #333; color: white; }
+        .table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 20px; }
+        .admin-table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        .admin-table th, .admin-table td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; white-space: nowrap; }
+        .admin-table th { background-color: #333; color: white; position: sticky; left: 0; }
         .admin-table tr:hover { background-color: #f5f5f5; }
         .btn { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; margin-right: 5px; }
         .btn-primary { background-color: #4CAF50; color: white; }
@@ -41,6 +43,80 @@
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
         .form-group input, .form-group select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+        
+        @media (max-width: 768px) {
+            .modal { position: fixed; inset: 0; padding: 5px; overflow-y: auto; -webkit-overflow-scrolling: touch; z-index: 2000; }
+            .modal-content { width: 100%; max-width: 100%; margin: 0 auto; padding: 12px; border-radius: 4px; }
+            .modal-header { flex-direction: row; margin-bottom: 12px; }
+            .modal-header h2 { font-size: 15px; margin: 0; }
+            .close { font-size: 22px; line-height: 1; }
+            .form-row { flex-direction: column; gap: 8px; }
+            .form-group { margin-bottom: 8px; }
+            .form-group label { font-size: 11px; margin-bottom: 2px; }
+            .form-group input, .form-group select, .form-group textarea { font-size: 14px; padding: 6px; width: 100%; box-sizing: border-box; }
+            textarea { width: 100%; min-height: 60px; }
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 0; }
+            .admin-container { padding: 8px 0; margin: 0 auto; max-width: 100%; width: 100%; overflow: hidden; }
+            .admin-header { flex-direction: column; align-items: flex-start; gap: 10px; padding: 0 10px; }
+            .admin-header h1 { font-size: 18px; }
+            .admin-table { font-size: 13px; }
+            .admin-table th, .admin-table td { padding: 6px; }
+            .btn { padding: 4px 8px; font-size: 11px; }
+            .table-wrapper { margin: 0; padding: 0; width: 100%; overflow-x: visible; }
+
+            #usersSection { width: 100%; max-width: 100%; overflow: hidden; }
+            #usersSection .admin-table { display: block; width: 100%; max-width: 100%; }
+            #usersSection .admin-table thead { display: none; }
+            #usersSection .admin-table tbody { display: block; width: 100%; }
+            #usersSection .admin-table tr { display: block; border: 1px solid #ddd; margin-bottom: 8px; border-radius: 4px; background: #fff; width: 100%; box-sizing: border-box; }
+            #usersSection .admin-table td { display: none; border: none; }
+            #usersSection .admin-table td.col-email { display: block; padding: 6px 8px; border-bottom: 1px solid #eee; word-break: break-all; }
+            #usersSection .admin-table td.col-email:before { content: "Email"; font-weight: bold; display: block; margin-bottom: 4px; color: #666; font-size: 10px; text-transform: uppercase; }
+            #usersSection .admin-table td.col-access { display: block; padding: 6px 8px; }
+            #usersSection .admin-table td.col-access:before { content: "Dostop"; font-weight: bold; display: block; margin-bottom: 4px; color: #666; font-size: 10px; text-transform: uppercase; }
+            #usersSection .admin-table td.col-actions { display: block; padding: 6px 8px; border-top: 1px solid #eee; }
+            #usersSection .admin-table td.col-actions button { display: inline-block; margin-right: 3px; margin-bottom: 0; width: auto; font-size: 10px; padding: 4px 6px; }
+
+            #videosSection .admin-table { display: block; }
+            #videosSection .admin-table thead { display: none; }
+            #videosSection .admin-table tbody { display: block; }
+            #videosSection .admin-table tr { display: block; border: 1px solid #ddd; margin-bottom: 8px; border-radius: 4px; background: #fff; }
+            #videosSection .admin-table td { display: none; border: none; }
+            #videosSection .admin-table td.col-video-title { display: block; padding: 8px; border-bottom: 1px solid #eee; font-weight: bold; }
+            #videosSection .admin-table td.col-video-title:before { content: "Naslov"; font-weight: bold; display: block; margin-bottom: 4px; color: #666; font-size: 10px; text-transform: uppercase; }
+            #videosSection .admin-table td.col-video-actions { display: block; padding: 8px; }
+            #videosSection .admin-table td.col-video-actions button { display: inline-block; margin-right: 3px; margin-bottom: 0; width: auto; font-size: 10px; padding: 4px 6px; }
+
+            #appointmentsSection .admin-table { display: block; }
+            #appointmentsSection .admin-table thead { display: none; }
+            #appointmentsSection .admin-table tbody { display: block; }
+            #appointmentsSection .admin-table tr { display: block; border: 1px solid #ddd; margin-bottom: 8px; border-radius: 4px; background: #fff; }
+            #appointmentsSection .admin-table td { display: none; border: none; }
+            #appointmentsSection .admin-table td.col-apt-user { display: block; padding: 8px; border-bottom: 1px solid #eee; font-weight: bold; }
+            #appointmentsSection .admin-table td.col-apt-user:before { content: "Uporabnik"; font-weight: bold; display: block; margin-bottom: 4px; color: #666; font-size: 10px; text-transform: uppercase; }
+            #appointmentsSection .admin-table td.col-apt-date { display: block; padding: 8px; border-bottom: 1px solid #eee; }
+            #appointmentsSection .admin-table td.col-apt-date:before { content: "Datum in čas"; font-weight: bold; display: block; margin-bottom: 4px; color: #666; font-size: 10px; text-transform: uppercase; }
+            #appointmentsSection .admin-table td.col-apt-status { display: block; padding: 8px; }
+            #appointmentsSection .admin-table td.col-apt-status:before { content: "Status"; font-weight: bold; display: block; margin-bottom: 4px; color: #666; font-size: 10px; text-transform: uppercase; }
+            #appointmentsSection .admin-table td.col-apt-actions { display: block; padding: 8px; border-top: 1px solid #eee; }
+            #appointmentsSection .admin-table td.col-apt-actions select { margin-bottom: 5px; width: 100%; }
+            #appointmentsSection .admin-table td.col-apt-actions button { display: inline-block; margin-right: 3px; margin-bottom: 0; width: auto; font-size: 10px; padding: 4px 6px; }
+
+            #barbersSection .admin-table { display: block; }
+            #barbersSection .admin-table thead { display: none; }
+            #barbersSection .admin-table tbody { display: block; }
+            #barbersSection .admin-table tr { display: block; border: 1px solid #ddd; margin-bottom: 8px; border-radius: 4px; background: #fff; }
+            #barbersSection .admin-table td { display: none; border: none; }
+            #barbersSection .admin-table td.col-barber-name { display: block; padding: 8px; border-bottom: 1px solid #eee; font-weight: bold; }
+            #barbersSection .admin-table td.col-barber-name:before { content: "Ime"; font-weight: bold; display: block; margin-bottom: 4px; color: #666; font-size: 10px; text-transform: uppercase; }
+            #barbersSection .admin-table td.col-barber-active { display: block; padding: 8px; }
+            #barbersSection .admin-table td.col-barber-active:before { content: "Aktiven"; font-weight: bold; display: block; margin-bottom: 4px; color: #666; font-size: 10px; text-transform: uppercase; }
+            #barbersSection .admin-table td.col-barber-actions { display: block; padding: 8px; border-top: 1px solid #eee; }
+            #barbersSection .admin-table td.col-barber-actions button { display: inline-block; margin-right: 3px; margin-bottom: 0; width: auto; font-size: 10px; padding: 4px 6px; }
+        }
     </style>
 </head>
 
@@ -54,6 +130,8 @@
             <button class="sidebar-button" onclick="showSection('videos')"><img src="SLIKE\SIDEBAR\video_library_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Video Posnetki</button>
             <div class="sidebar-divider"></div>
             <button class="sidebar-button" onclick="showSection('appointments')"><img src="SLIKE\SIDEBAR\video_library_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Rezervacije</button>
+            <div class="sidebar-divider"></div>
+            <button class="sidebar-button" onclick="showSection('barbers')"><img src="SLIKE\SIDEBAR\person_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png"> Brivci</button>
         </div>
     </aside>
     <header class="topbar">
@@ -61,6 +139,7 @@
             <button class="topbar-button" onclick="showSection('users')">Uporabniki</button>
             <button class="topbar-button" onclick="showSection('videos')">Video Posnetki</button>
             <button class="topbar-button" onclick="showSection('appointments')">Rezervacije</button>
+            <button class="topbar-button" onclick="showSection('barbers')">Brivci</button>
         </nav>
         <div class="topbar-auth">
             <span style="color: rgba(204, 155, 103, 0.733); margin-right: 10px;" id="adminName"></span>
@@ -75,6 +154,7 @@
         </div>
 
         <div id="usersSection">
+            <div class="table-wrapper">
             <table class="admin-table">
                 <thead>
                     <tr>
@@ -93,6 +173,7 @@
                     <tr><td colspan="9">Nalaganje...</td></tr>
                 </tbody>
             </table>
+            </div>
         </div>
 
         <div id="videosSection" style="display: none;">
@@ -100,45 +181,110 @@
                 <h1>Upravljanje video posnetkov</h1>
                 <button class="btn btn-primary" onclick="openAddVideoModal()">Dodaj video</button>
             </div>
+            <div class="table-wrapper">
             <table class="admin-table">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Naslov</th>
+                        <th class="col-video-title">Naslov</th>
                         <th>Opis</th>
                         <th>Video datoteka</th>
                         <th>Slika</th>
-                        <th>Akcije</th>
+                        <th class="col-video-actions">Akcije</th>
                     </tr>
                 </thead>
                 <tbody id="videosTableBody">
                     <tr><td colspan="6">Nalaganje...</td></tr>
                 </tbody>
             </table>
+            </div>
         </div>
 
         <div id="appointmentsSection" style="display: none;">
             <div class="admin-header" style="margin-top: 20px;">
                 <h1>Upravljanje rezervacij</h1>
             </div>
+            <div class="table-wrapper">
             <table class="admin-table">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Uporabnik</th>
+                        <th class="col-apt-user">Uporabnik</th>
                         <th>Email</th>
                         <th>Telefon</th>
                         <th>Brivec</th>
-                        <th>Datum</th>
+                        <th class="col-apt-date">Datum</th>
                         <th>Čas</th>
-                        <th>Status</th>
-                        <th>Akcije</th>
+                        <th class="col-apt-status">Status</th>
+                        <th class="col-apt-actions">Akcije</th>
                     </tr>
                 </thead>
                 <tbody id="appointmentsTableBody">
                     <tr><td colspan="9">Nalaganje...</td></tr>
                 </tbody>
             </table>
+            </div>
+        </div>
+
+        <div id="barbersSection" style="display: none;">
+            <div class="admin-header" style="margin-top: 20px;">
+                <h1>Upravljanje brivcev</h1>
+                <button class="btn btn-primary" onclick="openAddBarberModal()">Dodaj brivca</button>
+            </div>
+            <div class="table-wrapper">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th class="col-barber-name">Ime</th>
+                        <th>Opis</th>
+                        <th>Slika</th>
+                        <th>Starost</th>
+                        <th class="col-barber-active">Aktiven</th>
+                        <th class="col-barber-actions">Akcije</th>
+                    </tr>
+                </thead>
+                <tbody id="barbersTableBody">
+                    <tr><td colspan="7">Nalaganje...</td></tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="barberModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="barberModalTitle">Dodaj brivca</h2>
+                <span class="close" onclick="closeBarberModal()">&times;</span>
+            </div>
+            <form id="barberForm">
+                <input type="hidden" id="barberId">
+                <div class="form-group">
+                    <label for="barberName">Ime</label>
+                    <input type="text" id="barberName" required>
+                </div>
+                <div class="form-group">
+                    <label for="barberDescription">Opis</label>
+                    <textarea id="barberDescription" rows="3" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="barberImage">Slika URL</label>
+                    <input type="text" id="barberImage" placeholder="npr: SLIKE/brivci/luka.jpg">
+                </div>
+                <div class="form-group">
+                    <label for="barberAge">Starost</label>
+                    <input type="number" id="barberAge">
+                </div>
+                <div class="form-group">
+                    <label for="barberActive">Aktiven</label>
+                    <select id="barberActive">
+                        <option value="true">Da</option>
+                        <option value="false">Ne</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Shrani</button>
+            </form>
         </div>
     </div>
 
@@ -224,7 +370,6 @@
 
     <script src="JAVAScript/sidebar_and_topbar.js"></script>
     <script>
-        console.log('Admin JS loading...');
         const API_URL = 'http://localhost:3000/api';
 
         async function apiRequest(endpoint, method = 'GET', data = null) {
@@ -266,11 +411,8 @@
 
         async function loadUsers() {
             try {
-                console.log('Loading users...');
                 const response = await fetch(`${API_URL}/admin/users`, { credentials: 'include' });
-                console.log('Response status:', response.status);
                 const result = await response.json();
-                console.log('Result:', result);
                 
                 if (result.error) {
                     alert('Napaka: ' + result.error);
@@ -285,15 +427,15 @@
                 const tbody = document.getElementById('usersTableBody');
                 tbody.innerHTML = result.users.map(user => `
                     <tr>
-                        <td>${user.id}</td>
-                        <td>${user.first_name}</td>
-                        <td>${user.last_name}</td>
-                        <td>${user.email}</td>
-                        <td>${user.phone}</td>
-                        <td><span class="access-badge ${user.has_access ? 'access-granted' : 'access-denied'}">${user.has_access ? 'Omogočen' : 'Onemogočen'}</span></td>
-                        <td><span class="role-badge ${user.role === 'admin' ? 'role-admin' : 'role-user'}">${user.role}</span></td>
-                        <td>${new Date(user.created_at).toLocaleDateString('sl-SI')}</td>
-                        <td>
+                        <td class="col-id" data-label="ID">${user.id}</td>
+                        <td class="col-first-name" data-label="Ime">${user.first_name}</td>
+                        <td class="col-last-name" data-label="Priimek">${user.last_name}</td>
+                        <td class="col-email" data-label="Email">${user.email}</td>
+                        <td class="col-phone" data-label="Telefon">${user.phone}</td>
+                        <td class="col-access" data-label="Dostop"><span class="access-badge ${user.has_access ? 'access-granted' : 'access-denied'}">${user.has_access ? 'Omogočen' : 'Onemogočen'}</span></td>
+                        <td class="col-role" data-label="Vloga"><span class="role-badge ${user.role === 'admin' ? 'role-admin' : 'role-user'}">${user.role}</span></td>
+                        <td class="col-date" data-label="Datum">${new Date(user.created_at).toLocaleDateString('sl-SI')}</td>
+                        <td class="col-actions">
                             <button class="btn btn-warning" onclick="editUser(${user.id})">Uredi</button>
                             <button class="btn btn-danger" onclick="deleteUser(${user.id})">Izbriši</button>
                         </td>
@@ -410,9 +552,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', async () => {
-            console.log('Admin page loaded');
             const user = await checkAdmin();
-            console.log('User from checkAdmin:', user);
             if (user) {
                 document.getElementById('adminName').textContent = user.first_name;
                 loadUsers();
@@ -422,25 +562,35 @@
         });
 
         function showSection(section) {
-            console.log('showSection called with:', section);
             const usersSection = document.getElementById('usersSection');
             const videosSection = document.getElementById('videosSection');
             const appointmentsSection = document.getElementById('appointmentsSection');
+            const barbersSection = document.getElementById('barbersSection');
             const usersHeader = document.getElementById('usersHeader');
             
             if (section === 'users') {
                 usersSection.style.display = 'block';
                 videosSection.style.display = 'none';
                 appointmentsSection.style.display = 'none';
+                barbersSection.style.display = 'none';
                 usersHeader.style.display = 'flex';
             } else if (section === 'videos') {
                 usersSection.style.display = 'none';
                 videosSection.style.display = 'block';
                 appointmentsSection.style.display = 'none';
+                barbersSection.style.display = 'none';
                 usersHeader.style.display = 'none';
+            } else if (section === 'barbers') {
+                usersSection.style.display = 'none';
+                videosSection.style.display = 'none';
+                appointmentsSection.style.display = 'none';
+                barbersSection.style.display = 'block';
+                usersHeader.style.display = 'none';
+                loadBarbers();
             } else if (section === 'appointments') {
                 usersSection.style.display = 'none';
                 videosSection.style.display = 'none';
+                barbersSection.style.display = 'none';
                 appointmentsSection.style.display = 'block';
                 usersHeader.style.display = 'none';
             }
@@ -465,11 +615,11 @@
                 tbody.innerHTML = result.videos.map(video => `
                     <tr>
                         <td>${video.id}</td>
-                        <td>${video.title}</td>
-                        <td>${video.description || ''}</td>
-                        <td>${video.video_url}</td>
-                        <td>${video.thumbnail_url || ''}</td>
-                        <td>
+                        <td class="col-video-title" data-label="Naslov">${video.title}</td>
+                        <td data-label="Opis">${video.description || ''}</td>
+                        <td data-label="Video">${video.video_url}</td>
+                        <td data-label="Slika">${video.thumbnail_url || ''}</td>
+                        <td class="col-video-actions">
                             <button class="btn btn-warning" onclick="editVideo(${video.id})">Uredi</button>
                             <button class="btn btn-danger" onclick="deleteVideo(${video.id})">Izbriši</button>
                         </td>
@@ -557,14 +707,14 @@
                 tbody.innerHTML = result.map(apt => `
                     <tr>
                         <td>${apt.id}</td>
-                        <td>${apt.first_name} ${apt.last_name}</td>
-                        <td>${apt.email}</td>
-                        <td>${apt.phone}</td>
-                        <td>${apt.barber_name}</td>
-                        <td>${new Date(apt.appointment_date).toLocaleDateString('sl-SI')}</td>
-                        <td>${apt.appointment_time}</td>
-                        <td><span class="status-badge status-${apt.status}">${getStatusText(apt.status)}</span></td>
-                        <td>
+                        <td class="col-apt-user" data-label="Uporabnik">${apt.first_name} ${apt.last_name}</td>
+                        <td data-label="Email">${apt.email}</td>
+                        <td data-label="Telefon">${apt.phone}</td>
+                        <td data-label="Brivec">${apt.barber_name}</td>
+                        <td class="col-apt-date" data-label="Datum">${new Date(apt.appointment_date).toLocaleDateString('sl-SI')}</td>
+                        <td data-label="Čas">${apt.appointment_time}</td>
+                        <td class="col-apt-status" data-label="Status"><span class="status-badge status-${apt.status}">${getStatusText(apt.status)}</span></td>
+                        <td class="col-apt-actions">
                             <select onchange="updateAppointmentStatus(${apt.id}, this.value)" style="padding: 4px;">
                                 <option value="pending" ${apt.status === 'pending' ? 'selected' : ''}>V čakanju</option>
                                 <option value="confirmed" ${apt.status === 'confirmed' ? 'selected' : ''}>Potrjen</option>
@@ -674,8 +824,145 @@
             if (event.target.classList.contains('modal')) {
                 closeModal();
                 closeVideoModal();
+                closeBarberModal();
             }
         }
+
+        async function loadBarbers() {
+            try {
+                const response = await fetch(`${API_URL}/admin/barbers`, { credentials: 'include' });
+                const result = await response.json();
+                
+                if (result.error) {
+                    alert('Napaka: ' + result.error);
+                    return;
+                }
+
+                if (!result.barbers || result.barbers.length === 0) {
+                    document.getElementById('barbersTableBody').innerHTML = '<tr><td colspan="7">Ni brivcev</td></tr>';
+                    return;
+                }
+
+                const tbody = document.getElementById('barbersTableBody');
+                tbody.innerHTML = result.barbers.map(barber => `
+                    <tr>
+                        <td>${barber.id}</td>
+                        <td class="col-barber-name" data-label="Ime">${barber.name}</td>
+                        <td data-label="Opis">${barber.description || ''}</td>
+                        <td data-label="Slika">${barber.image_url || ''}</td>
+                        <td data-label="Starost">${barber.age || ''}</td>
+                        <td class="col-barber-active" data-label="Aktiven"><span class="access-badge ${barber.active ? 'access-granted' : 'access-denied'}">${barber.active ? 'Da' : 'Ne'}</span></td>
+                        <td class="col-barber-actions">
+                            <button class="btn btn-warning" onclick="editBarber(${barber.id})">Uredi</button>
+                            <button class="btn btn-danger" onclick="deleteBarber(${barber.id})">Izbriši</button>
+                        </td>
+                    </tr>
+                `).join('');
+            } catch (e) {
+                console.error('Error loading barbers:', e);
+                document.getElementById('barbersTableBody').innerHTML = '<tr><td colspan="7">Napaka pri nalaganju brivcev</td></tr>';
+            }
+        }
+
+        function openAddBarberModal() {
+            document.getElementById('barberModalTitle').textContent = 'Dodaj brivca';
+            document.getElementById('barberForm').reset();
+            document.getElementById('barberId').value = '';
+            document.getElementById('barberActive').value = 'true';
+            document.getElementById('barberModal').style.display = 'block';
+        }
+
+        async function editBarber(id) {
+            try {
+                const response = await fetch(`${API_URL}/admin/barbers`, { credentials: 'include' });
+                const result = await response.json();
+                
+                if (result.error || !result.barbers) {
+                    alert(result.error || 'Napaka pri nalaganju podatkov');
+                    return;
+                }
+
+                const barber = result.barbers.find(b => b.id === id);
+                if (!barber) {
+                    alert('Brivec ne obstaja');
+                    return;
+                }
+
+                document.getElementById('barberModalTitle').textContent = 'Uredi brivca';
+                document.getElementById('barberId').value = barber.id;
+                document.getElementById('barberName').value = barber.name;
+                document.getElementById('barberDescription').value = barber.description || '';
+                document.getElementById('barberImage').value = barber.image_url || '';
+                document.getElementById('barberAge').value = barber.age || '';
+                document.getElementById('barberActive').value = barber.active ? 'true' : 'false';
+                document.getElementById('barberModal').style.display = 'block';
+            } catch (e) {
+                alert('Napaka pri nalaganju podatkov');
+            }
+        }
+
+        function closeBarberModal() {
+            document.getElementById('barberModal').style.display = 'none';
+        }
+
+        async function deleteBarber(id) {
+            if (!confirm('Ali ste prepričani, da želite izbrisati tega brivca?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/admin/barbers/${id}`, {
+                    method: 'DELETE',
+                    credentials: 'include'
+                });
+
+                const result = await response.json();
+                
+                if (result.error) {
+                    alert(result.error);
+                } else {
+                    loadBarbers();
+                }
+            } catch (e) {
+                alert('Napaka pri brisanju');
+            }
+        }
+
+        document.getElementById('barberForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const id = document.getElementById('barberId').value;
+            const data = {
+                name: document.getElementById('barberName').value,
+                description: document.getElementById('barberDescription').value,
+                image_url: document.getElementById('barberImage').value,
+                age: document.getElementById('barberAge').value ? parseInt(document.getElementById('barberAge').value) : null,
+                active: document.getElementById('barberActive').value === 'true'
+            };
+
+            try {
+                const url = id ? `${API_URL}/admin/barbers/${id}` : `${API_URL}/admin/barbers`;
+                const method = id ? 'PUT' : 'POST';
+                
+                const response = await fetch(url, {
+                    method: method,
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                
+                if (result.error) {
+                    alert(result.error);
+                } else {
+                    closeBarberModal();
+                    loadBarbers();
+                }
+            } catch (e) {
+                alert('Napaka pri shranjevanju');
+            }
+        });
     </script>
 </body>
 
